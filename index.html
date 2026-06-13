@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学習ハブ｜統合ダッシュボード</title>
+<style>
+  :root{
+    --paper:#FCFBF7; --ink:#23272F; --sub:#6B6F78; --line:#DCD8CD;
+    --sharo:#BC342C; --takken:#1B5E7A; --marker-soft:#FFF3B8; --gold:#FFE76A;
+    --serif:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.75;}
+  .wrap{max-width:620px;margin:0 auto;padding:0 16px 90px;}
+  header{border-bottom:2px solid var(--ink);padding:20px 0 12px;}
+  .exam-label{font-size:11px;letter-spacing:.22em;color:var(--sub);}
+  h1{font-family:var(--serif);font-size:22px;letter-spacing:.06em;margin-top:2px;}
+  .updated{font-size:11px;color:var(--sub);margin-top:6px;}
+
+  /* カウントダウン */
+  .countdowns{display:flex;gap:10px;margin:18px 0 6px;}
+  .cd{flex:1;border:1px solid var(--ink);background:#fff;padding:12px 10px;text-align:center;}
+  .cd.takken{border-top:4px solid var(--takken);}
+  .cd.sharo{border-top:4px solid var(--sharo);}
+  .cd .label{font-size:11px;color:var(--sub);letter-spacing:.1em;}
+  .cd .days{font-family:var(--serif);font-size:30px;font-weight:700;line-height:1.1;margin-top:2px;}
+  .cd .days .u{font-size:13px;font-weight:400;margin-left:1px;}
+  .cd .date{font-size:10.5px;color:var(--sub);margin-top:2px;}
+
+  .care{background:var(--marker-soft);border-left:4px solid var(--gold);padding:11px 14px;margin:14px 0;font-size:12.5px;color:#5a4a00;line-height:1.8;}
+
+  .tabs{display:flex;gap:8px;margin:20px 0 4px;}
+  .tab{flex:1;text-align:center;padding:11px;border:1px solid var(--ink);background:#fff;font-size:14px;cursor:pointer;font-family:var(--sans);}
+  .tab.takken.active{background:var(--takken);color:#fff;border-color:var(--takken);}
+  .tab.sharo.active{background:var(--sharo);color:#fff;border-color:var(--sharo);}
+  .panel{display:none;} .panel.active{display:block;}
+
+  h2{font-family:var(--serif);font-size:15px;margin:24px 0 10px;padding-bottom:4px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;}
+  h2 .meta{font-size:11px;color:var(--sub);font-family:var(--sans);font-weight:400;}
+
+  .item{display:block;background:#fff;border:1px solid var(--line);padding:13px 15px;margin-bottom:10px;position:relative;}
+  .item .t{font-family:var(--serif);font-size:15px;font-weight:700;}
+  .item .d{font-size:12px;color:var(--sub);margin-top:2px;}
+  .item .badge{position:absolute;right:14px;top:14px;font-size:10.5px;padding:2px 8px;letter-spacing:.05em;}
+  .badge.app{background:var(--marker-soft);color:#7a5d00;}
+  .badge.text{border:1px solid var(--line);color:var(--sub);}
+  .badge.soon{background:#eee;color:#999;}
+  .item.locked{opacity:.5;}
+  .open-btn{display:inline-block;margin-top:9px;padding:8px 18px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-size:13px;text-decoration:none;cursor:pointer;letter-spacing:.05em;}
+  .open-btn:active{opacity:.8;}
+  .pastebox{margin-top:9px;}
+  .pastebox input{width:100%;border:1px solid var(--line);padding:9px;font-size:13px;font-family:var(--sans);}
+  .pastebox .pb-btn{margin-top:6px;padding:8px 14px;border:1px solid var(--ink);background:#fff;color:var(--ink);font-size:12px;cursor:pointer;}
+  .relink{background:none;border:none;color:var(--sub);text-decoration:underline;font-size:11px;cursor:pointer;margin-left:10px;}
+
+  .howto{background:#fff;border:1px solid var(--ink);padding:14px 16px;margin:22px 0;font-size:12.5px;line-height:1.85;}
+  .howto b{font-family:var(--serif);}
+  .note{font-size:11.5px;color:var(--sub);border-top:1px dashed var(--line);margin-top:24px;padding-top:12px;line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="exam-label">資格学習 統合ダッシュボード</div>
+  <h1>学習ハブ</h1>
+  <div class="updated" id="updated">最終更新：2026年6月13日</div>
+</header>
+
+<div class="countdowns">
+  <div class="cd takken">
+    <div class="label">宅建本番まで</div>
+    <div class="days" id="cd-takken">–<span class="u">日</span></div>
+    <div class="date">2026/10/18</div>
+  </div>
+  <div class="cd sharo">
+    <div class="label">社労士本番まで</div>
+    <div class="days" id="cd-sharo">–<span class="u">日</span></div>
+    <div class="date">2027/08/22 (予定)</div>
+  </div>
+</div>
+
+<div class="care">短期決戦の宅建と本丸の社労士。無理のないペースで大丈夫。今日できなくても教材は逃げません。調子の出ない日は、ここを閉じて休んでください。</div>
+
+<div class="tabs">
+  <div class="tab takken active" data-panel="takken">宅建（先攻）</div>
+  <div class="tab sharo" data-panel="sharo">社労士（本命）</div>
+</div>
+
+<div class="panel active" id="panel-takken">
+  <h2>択一トレーニング<span class="meta">タップで開く</span></h2>
+  <div class="item" data-key="takken_quiz">
+    <span class="badge app">アプリ</span>
+    <div class="t">宅建 択一トレーニング</div>
+    <div class="d">宅建業法18問＋権利関係10問・全肢解説・進捗保存</div>
+    <div class="slot"></div>
+  </div>
+  <h2>テキスト（やさしい読本）</h2>
+  <div class="item" data-key="takken_text1">
+    <span class="badge text">テキスト</span>
+    <div class="t">第1巻　宅建業法</div>
+    <div class="d">経験者の再起動用。比較表＋改正点</div>
+    <div class="slot"></div>
+  </div>
+  <div class="item locked"><span class="badge soon">制作予定</span><div class="t">第2巻　権利関係</div><div class="d">民法・借地借家・区分所有・登記</div></div>
+  <div class="item locked"><span class="badge soon">制作予定</span><div class="t">第3巻　法令上の制限・税</div><div class="d">都市計画・建築基準・国土法・農地法</div></div>
+</div>
+
+<div class="panel" id="panel-sharo">
+  <h2>択一トレーニング・資料<span class="meta">タップで開く</span></h2>
+  <div class="item" data-key="sharo_quiz">
+    <span class="badge app">アプリ</span>
+    <div class="t">社労士 全科目演習</div>
+    <div class="d">全10科目110問＋第57回本試験20問</div>
+    <div class="slot"></div>
+  </div>
+  <div class="item" data-key="sharo_oudan">
+    <span class="badge app">資料</span>
+    <div class="t">横断整理表（全12表）</div>
+    <div class="d">待期・遺族の範囲・年齢の階段など科目横断</div>
+    <div class="slot"></div>
+  </div>
+  <h2>テキスト（やさしい読本）</h2>
+  <div class="item" data-key="sharo_text1"><span class="badge text">テキスト</span><div class="t">第1巻　労働基準法</div><div class="slot"></div></div>
+  <div class="item" data-key="sharo_text2"><span class="badge text">テキスト</span><div class="t">第2巻　労働安全衛生法</div><div class="slot"></div></div>
+  <div class="item" data-key="sharo_text3"><span class="badge text">テキスト</span><div class="t">第3巻　労災保険法</div><div class="slot"></div></div>
+  <div class="item" data-key="sharo_text4"><span class="badge text">テキスト</span><div class="t">第4巻　雇用保険法</div><div class="slot"></div></div>
+  <div class="item" data-key="sharo_text5"><span class="badge text">テキスト</span><div class="t">第5巻　労働保険徴収法（労働科目・完）</div><div class="slot"></div></div>
+  <div class="item locked"><span class="badge soon">制作予定</span><div class="t">第6巻〜　健保・国年・厚年・一般常識</div><div class="d">社会保険科目編・順次追加</div></div>
+</div>
+
+<div class="howto">
+<b>このハブの使い方</b><br>
+GitHub Pages（または同じフォルダ）に教材ファイルと一緒に置けば、各教材の「開く」ボタンは<b>自動でリンクされます</b>。手動登録は不要です。万一リンクがずれた場合だけ「リンク変更」で直せます。<br><br>
+<b>ホーム画面に置く</b>：このハブ（index.html）をSafariで開き、共有ボタン→「ホーム画面に追加」。アイコン1つから全教材に届きます。教材を更新してもURLは変わらないので、進捗もアイコンもそのまま最新化されます。
+</div>
+
+<p class="note">
+※ カウントダウンは端末の日付から自動計算。社労士本番日は2027年の正式日程が出たら更新します。<br>
+※ 各アプリの学習進捗は、それぞれのアプリ側に保存されます（このハブとは独立）。<br>
+※ リンク登録情報はこの端末のブラウザ内のみ。機種変更時は再登録が必要です。
+</p>
+</div>
+
+<script>
+const STORE = "study-hub-links-v1";
+let links = {};
+try{ const v = localStorage.getItem(STORE); if(v) links = JSON.parse(v); }catch(e){ links = {}; }
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify(links)); }catch(e){} }
+
+// 同じフォルダにホストされている場合、教材URLを自動補完
+const FILEMAP = {
+  takken_quiz: "takken-quiz.html",
+  takken_text1: "takken-text-01-gyouhou.html",
+  sharo_quiz: "sharoushi-quiz.html",
+  sharo_oudan: "sharoushi-crosstable.html",
+  sharo_text1: "sharoushi-text-01-roukihou.html",
+  sharo_text2: "sharoushi-text-02-anneihou.html",
+  sharo_text3: "sharoushi-text-03-rousai.html",
+  sharo_text4: "sharoushi-text-04-koyou.html",
+  sharo_text5: "sharoushi-text-05-choshu.html"
+};
+(function autofill(){
+  // index.html がURL(http/https)で開かれている場合のみ、同階層のファイルへのリンクを自動設定
+  const loc = window.location.href;
+  if(/^https?:\/\//.test(loc)){
+    const base = loc.replace(/[^\/]*$/, ""); // 末尾のファイル名を除いたディレクトリ
+    let changed = false;
+    Object.keys(FILEMAP).forEach(key=>{
+      if(!links[key]){ links[key] = base + FILEMAP[key]; changed = true; }
+    });
+    if(changed) save();
+  }
+})();
+
+// カウントダウン
+function daysTo(y,m,d){
+  const now = new Date(); now.setHours(0,0,0,0);
+  const target = new Date(y, m-1, d);
+  return Math.max(0, Math.round((target - now)/86400000));
+}
+document.getElementById("cd-takken").innerHTML = daysTo(2026,10,18) + '<span class="u">日</span>';
+document.getElementById("cd-sharo").innerHTML = daysTo(2027,8,22) + '<span class="u">日</span>';
+
+// リンク登録UI
+function renderSlots(){
+  document.querySelectorAll(".item .slot").forEach(slot=>{
+    const item = slot.closest(".item");
+    const key = item.dataset.key;
+    if(!key) return;
+    slot.innerHTML = "";
+    if(links[key]){
+      const a = document.createElement("a");
+      a.className = "open-btn"; a.href = links[key]; a.target="_blank"; a.rel="noopener";
+      a.textContent = "▶ 開く";
+      const re = document.createElement("button");
+      re.className = "relink"; re.textContent = "リンク変更";
+      re.addEventListener("click", ()=>{ delete links[key]; save(); renderSlots(); });
+      slot.appendChild(a); slot.appendChild(re);
+    }else{
+      const box = document.createElement("div");
+      box.className = "pastebox";
+      const input = document.createElement("input");
+      input.placeholder = "リンクを貼り付け（ドライブ等）";
+      const btn = document.createElement("button");
+      btn.className = "pb-btn"; btn.textContent = "リンクを登録";
+      btn.addEventListener("click", ()=>{ const v = input.value.trim(); if(v){ links[key]=v; save(); renderSlots(); } });
+      box.appendChild(input); box.appendChild(btn);
+      slot.appendChild(box);
+    }
+  });
+}
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById("panel-"+tab.dataset.panel).classList.add("active");
+  });
+});
+renderSlots();
+</script>
+</body>
+</html>
