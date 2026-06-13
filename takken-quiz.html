@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>宅建 択一トレーニング｜宅建業法</title>
+<style>
+  :root{
+    --paper:#FCFBF7; --ink:#23272F; --sub:#6B6F78; --line:#DCD8CD;
+    --shu:#1B5E7A;        /* 宅建版は藍色の採点 */
+    --marker:#9FD8E8; --marker-soft:#DCF0F5;
+    --serif:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho","BIZ UDMincho",serif;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic","BIZ UDGothic",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.75;}
+  .wrap{max-width:560px;margin:0 auto;padding:0 18px 96px;}
+  header{border-bottom:2px solid var(--ink);padding:20px 0 12px;margin-bottom:4px;}
+  .exam-label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;color:var(--sub);}
+  h1{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.06em;margin-top:2px;}
+  .subject-tag{display:inline-block;font-size:12px;border:1px solid var(--ink);padding:1px 10px;margin-top:8px;letter-spacing:.15em;}
+  .stats{display:flex;border:1px solid var(--line);background:#fff;margin:20px 0 16px;}
+  .stat{flex:1;text-align:center;padding:14px 4px 12px;}
+  .stat + .stat{border-left:1px solid var(--line);}
+  .stat .num{font-family:var(--serif);font-size:26px;font-weight:700;line-height:1.2;}
+  .stat .num .unit{font-size:13px;font-weight:400;margin-left:1px;}
+  .stat .lbl{font-size:11px;color:var(--sub);letter-spacing:.1em;}
+  .menu-btn{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--ink);padding:16px 18px;margin-bottom:12px;font-family:var(--sans);font-size:16px;color:var(--ink);cursor:pointer;position:relative;}
+  .menu-btn:active{background:var(--marker-soft);}
+  .menu-btn .desc{display:block;font-size:12px;color:var(--sub);margin-top:2px;}
+  .menu-btn:after{content:"→";position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--sub);}
+  .menu-btn.disabled{opacity:.4;pointer-events:none;}
+  .reset-link{display:block;margin:22px auto 0;background:none;border:none;font-size:12px;color:var(--sub);text-decoration:underline;cursor:pointer;}
+  .note{font-size:12px;color:var(--sub);border-top:1px dashed var(--line);margin-top:26px;padding-top:12px;}
+  .q-head{display:flex;align-items:baseline;justify-content:space-between;margin:18px 0 6px;}
+  .q-no{font-family:var(--serif);font-weight:700;font-size:20px;}
+  .q-prog{font-size:12px;color:var(--sub);letter-spacing:.08em;}
+  .q-text{font-family:var(--serif);font-size:16.5px;line-height:2;margin-bottom:18px;text-align:justify;white-space:pre-line;}
+  .choices{list-style:none;}
+  .choice{display:flex;gap:12px;border:1px solid var(--line);background:#fff;padding:13px 14px;margin-bottom:10px;cursor:pointer;position:relative;font-family:var(--serif);font-size:15px;line-height:1.85;text-align:justify;}
+  .choice:active{background:var(--marker-soft);}
+  .choice .alpha{font-family:var(--serif);font-weight:700;flex-shrink:0;}
+  .choice.locked{cursor:default;}
+  .choice.picked{background:var(--marker);border-color:var(--ink);}
+  .choice.dim{opacity:.55;}
+  .mark{position:absolute;top:-14px;left:-10px;width:42px;height:42px;pointer-events:none;}
+  .mark svg{width:100%;height:100%;}
+  .mark .stroke{stroke:var(--shu);stroke-width:5;fill:none;stroke-linecap:round;stroke-dasharray:200;stroke-dashoffset:200;animation:draw .45s ease forwards;}
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @media (prefers-reduced-motion: reduce){.mark .stroke{animation:none;stroke-dashoffset:0;}}
+  .verdict{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--shu);border:2px solid var(--shu);display:inline-block;padding:2px 16px;margin:6px 0 14px;letter-spacing:.2em;}
+  .point-box{background:var(--marker-soft);border-left:4px solid var(--marker);padding:12px 14px;margin:4px 0 18px;}
+  .point-box h3{font-size:12px;letter-spacing:.2em;font-weight:700;color:var(--ink);margin-bottom:6px;}
+  .point-box p{font-size:13.5px;line-height:1.9;text-align:justify;}
+  .kaisetsu{border-top:2px solid var(--ink);padding-top:12px;margin-top:4px;}
+  .kaisetsu h3{font-size:13px;letter-spacing:.2em;color:var(--sub);font-weight:600;margin-bottom:8px;}
+  .kai-item{font-size:13.5px;line-height:1.8;margin-bottom:8px;padding-left:1.6em;text-indent:-1.6em;}
+  .kai-item .ox{color:var(--shu);font-weight:700;margin-right:4px;}
+  .next-bar{position:fixed;bottom:0;left:0;right:0;background:var(--paper);border-top:1px solid var(--line);padding:12px 18px calc(12px + env(safe-area-inset-bottom));}
+  .next-bar .inner{max-width:560px;margin:0 auto;display:flex;gap:10px;}
+  .btn{flex:1;font-family:var(--sans);font-size:16px;padding:14px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;letter-spacing:.1em;}
+  .btn.ghost{background:#fff;color:var(--ink);flex:0 0 auto;padding:14px 16px;}
+  .btn:active{opacity:.8;}
+  .result-circle{text-align:center;margin:34px 0 10px;}
+  .result-circle .big{font-family:var(--serif);font-size:52px;font-weight:700;color:var(--shu);line-height:1;}
+  .result-circle .big .small{font-size:20px;color:var(--ink);}
+  .result-circle .cap{font-size:12px;color:var(--sub);letter-spacing:.15em;margin-top:6px;}
+  .result-list{margin:22px 0;border-top:1px solid var(--line);}
+  .result-row{display:flex;gap:10px;padding:10px 2px;border-bottom:1px solid var(--line);font-size:13.5px;align-items:baseline;}
+  .result-row .ox{font-family:var(--serif);font-weight:700;color:var(--shu);flex-shrink:0;width:1.4em;}
+  .loading{text-align:center;color:var(--sub);font-size:13px;padding:60px 0;letter-spacing:.2em;}
+  .hidden{display:none;}
+  .care{background:#fff;border:1px solid var(--line);padding:11px 14px;margin:16px 0 0;font-size:12.5px;color:var(--sub);line-height:1.8;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="exam-label">宅地建物取引士試験対策｜択一式トレーニング</div>
+    <h1>宅建 全科目演習</h1>
+    <span class="subject-tag">宅建業法18問＋権利関係10問</span>
+  </header>
+
+  <div id="screen-loading" class="loading">読み込み中…</div>
+
+  <div id="screen-home" class="hidden">
+    <div class="stats">
+      <div class="stat"><div class="num" id="st-answered">0<span class="unit">問</span></div><div class="lbl">解答済み</div></div>
+      <div class="stat"><div class="num" id="st-rate">–<span class="unit">%</span></div><div class="lbl">直近正答率</div></div>
+      <div class="stat"><div class="num" id="st-wrong">0<span class="unit">問</span></div><div class="lbl">要復習</div></div>
+    </div>
+    <div id="cat-menu"></div>
+    <button class="menu-btn" id="btn-review">間違えた問題だけ解く<span class="desc">全範囲から、直近で×だった問題を復習</span></button>
+    <button class="menu-btn" id="btn-random">ランダムに5問<span class="desc">全範囲から。軽くひと回しに</span></button>
+    <button class="reset-link" id="btn-reset">成績データをリセットする</button>
+    <div class="care">無理のないペースで。今日は1〜2問でも十分です。調子が出ない日は閉じて休んでください。続きはいつでもここにあります。</div>
+    <p class="note">本試験と同じ4肢択一形式です。問題はClaudeが作成した演習用オリジナル問題で、成績はこの端末のあなた専用データとして保存されます。</p>
+  </div>
+
+  <div id="screen-quiz" class="hidden">
+    <div class="q-head">
+      <div class="q-no" id="q-no">問 1</div>
+      <div class="q-prog" id="q-prog">1 / 10</div>
+    </div>
+    <p class="q-text" id="q-text"></p>
+    <ul class="choices" id="choices"></ul>
+    <div id="feedback" class="hidden">
+      <div class="verdict" id="verdict">正解</div>
+      <div class="point-box"><h3>この問題のポイント</h3><p id="q-point"></p></div>
+      <div class="kaisetsu"><h3>各肢の解説</h3><div id="kai-list"></div></div>
+    </div>
+  </div>
+
+  <div id="screen-result" class="hidden">
+    <div class="result-circle">
+      <div class="big"><span id="r-correct">0</span><span class="small"> / <span id="r-total">10</span> 問正解</span></div>
+      <div class="cap" id="r-cap">採点結果</div>
+    </div>
+    <div class="result-list" id="r-list"></div>
+  </div>
+</div>
+
+<div class="next-bar hidden" id="next-bar">
+  <div class="inner">
+    <button class="btn ghost" id="btn-quit">中断</button>
+    <button class="btn" id="btn-next">次の問題へ</button>
+  </div>
+</div>
+<div class="next-bar hidden" id="result-bar">
+  <div class="inner">
+    <button class="btn ghost" id="btn-home2">ホームへ</button>
+    <button class="btn" id="btn-retry-wrong">間違えた問題を解き直す</button>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+{
+ id:"tg01", title:"宅建業の定義",
+ q:"宅地建物取引業の免許に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "自己所有の宅地を10区画に分割し、不特定多数の者に反復継続して分譲する場合は、宅地建物取引業の免許を受ける必要がある。",
+  "自己所有のビル1棟を、自ら賃貸する事業を反復継続して行う場合は、宅地建物取引業の免許を受ける必要がある。",
+  "他人の所有する建物の売買の媒介を1回だけ行う場合は、業として行うものではないため、いかなる場合も免許を受ける必要はない。",
+  "国や地方公共団体から依頼を受けて宅地の売買の代理を業として行う場合は、免許を受ける必要はない。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。宅地を不特定多数に反復継続して分譲（売買）するのは「宅地建物取引業」に当たり、免許が必要。",
+  "誤り。自ら貸主として賃貸する行為（自ら賃貸）は、取引（売買・交換・媒介・代理）に当たらず、宅建業ではない。反復継続でも免許不要。最頻出のひっかけ。",
+  "誤り。「業として」は反復継続性で判断するが、1回でも反復継続の意思があれば業に当たり得る。「1回だからいかなる場合も不要」と言い切る点が誤り。",
+  "誤り。国・地方公共団体には宅建業法は適用されないが、その代理を業として行う者（民間業者）には免許が必要。"
+ ],
+ point:"宅建業＝〈宅地・建物〉の〈売買・交換〉または〈売買・交換・貸借の代理・媒介〉を〈業として〉行うこと。最大の急所は『自ら貸借（自ら賃貸・転貸）は宅建業ではない』点。大家業・サブリースは免許不要、と覚える。"
+},
+{
+ id:"tg02", title:"免許の要否（自ら・代理・媒介）",
+ q:"次の行為のうち、宅地建物取引業の免許を必要としないものはどれか。なお、いずれも業として行うものとする。",
+ choices:[
+  "自ら売主として、宅地を分譲する行為",
+  "他人の建物の貸借の媒介を行う行為",
+  "自ら貸主として、アパートを賃貸する行為",
+  "他人の宅地の売買の代理を行う行為"
+ ],
+ answer:2,
+ kai:[
+  "誤り（免許必要）。自ら売主として宅地を売買するのは宅建業。",
+  "誤り（免許必要）。貸借の媒介は宅建業に含まれる。",
+  "正しい（免許不要）。自ら貸主として賃貸する『自ら貸借』は宅建業に当たらない。これがこの問題の答え。",
+  "誤り（免許必要）。売買の代理は宅建業。"
+ ],
+ point:"取引の8類型を表で覚える。〈売買・交換〉は自ら・代理・媒介の3つとも宅建業。〈貸借〉は代理・媒介は宅建業だが『自ら貸借』だけが宅建業でない。表の右下1マスだけが免許不要、というイメージ。"
+},
+{
+ id:"tg03", title:"事務所と専任宅建士",
+ q:"宅地建物取引業者の事務所等に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "宅地建物取引業者は、その事務所ごとに、業務に従事する者5人に1人以上の割合で成年者である専任の宅地建物取引士を置かなければならない。",
+  "専任の宅地建物取引士が退職して法定数を欠いた場合、宅地建物取引業者は1月以内に必要な措置を執らなければならない。",
+  "宅地建物取引業者は、その事務所ごとに、公衆の見やすい場所に報酬の額を掲示する必要はない。",
+  "案内所等で契約の締結等を行わない場所であっても、専任の宅地建物取引士を1人以上置かなければならない。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。事務所では業務従事者5人に1人以上の専任宅建士の設置義務がある（業法31条の3）。",
+  "誤り。法定数を欠いた場合は2週間以内に必要な措置を執らなければならない。1月以内ではない。",
+  "誤り。事務所ごとに報酬額を公衆の見やすい場所に掲示する義務がある。",
+  "誤り。専任宅建士の設置が必要な案内所等は『契約の締結または申込みの受付を行う』場所。契約等を行わない案内所には設置義務はない（1人以上必要なのは行う場合）。"
+ ],
+ point:"事務所の3点セット〈標識・報酬額の掲示・帳簿・従業者名簿〉＋〈専任宅建士5人に1人〉。欠員補充は2週間以内。案内所で専任宅建士が要るのは『契約・申込みを受ける』案内所だけ、という条件付きに注意。"
+},
+{
+ id:"tg04", title:"免許の基準（欠格事由）",
+ q:"宅地建物取引業の免許に関する次の記述のうち、宅地建物取引業法の規定によれば、免許を受けることができるものはどれか。",
+ choices:[
+  "破産手続開始の決定を受けて復権を得てから3年を経過しない者",
+  "宅地建物取引業法に違反して罰金の刑に処せられ、その刑の執行を終わった日から5年を経過しない者",
+  "禁錮以上の刑に処せられ、その刑の執行を終わった日から5年を経過しない者",
+  "営業に関し成年者と同一の行為能力を有しない未成年者で、その法定代理人が宅地建物取引業法違反により罰金刑に処せられ、その執行を終えてから5年を経過しない者"
+ ],
+ answer:0,
+ kai:[
+  "正しい（免許可）。破産者は復権を得れば直ちに免許を受けられる。『復権から5年』のような期間制限はない。",
+  "誤り（免許不可）。宅建業法違反による罰金刑は、執行終了等から5年を経過しないと免許を受けられない。",
+  "誤り（免許不可）。禁錮以上の刑はすべて、刑の種類・罪名を問わず5年間欠格。",
+  "誤り（免許不可）。成年者と同一の行為能力を有しない未成年者は、その法定代理人が欠格事由に該当する場合は本人も免許を受けられない。本肢の法定代理人は5年欠格中であり、未成年者本人も免許を受けられない。"
+ ],
+ point:"欠格事由は『5年』が基本ライン（禁錮以上、一定の罰金、免許不正取得等による取消し）。例外として破産者は『復権で即OK』、成年被後見人等は『要件に応じて個別判断』。破産＝復権で直ちに、を押さえると1肢切れる。"
+},
+{
+ id:"tg05", title:"宅地建物取引士",
+ q:"宅地建物取引士に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "宅地建物取引士証の有効期間は5年であり、更新を受けることができる。",
+  "重要事項の説明をする際、相手方から請求がなければ宅地建物取引士証を提示する必要はない。",
+  "宅地建物取引士の登録を受けるには、宅地建物取引士資格試験に合格し、かつ、5年以上の実務経験が必要である。",
+  "宅地建物取引士証の交付を受けようとする者は、登録をしている都道府県知事が指定する講習で交付の申請前6月以内に行われるものを受講しなければならないが、試験合格後3年以内に交付を受ける場合はこの講習が不要である。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。宅建士証の有効期間は5年で、更新できる。",
+  "誤り。取引士証の提示は、重要事項の説明の際は相手方の請求がなくても必ず行わなければならない（取引の関係者から請求があったときも提示）。",
+  "誤り。登録には2年以上の実務経験（または国土交通大臣の登録実務講習の修了）が必要。5年ではない。",
+  "誤り。法定講習が不要となるのは試験合格後『1年以内』に交付を受ける場合。『3年以内』が誤り。前半（交付申請前6月以内の法定講習）は正しい。"
+ ],
+ point:"宅建士の3ステップ〈試験合格→登録（2年の実務経験 or 登録実務講習）→取引士証の交付（合格後1年超なら法定講習）〉。取引士証は5年更新。重説時の提示は『請求がなくても必須』が頻出。"
+},
+{
+ id:"tg06", title:"営業保証金",
+ q:"営業保証金に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "宅地建物取引業者は、主たる事務所について1,000万円、その他の事務所について事務所ごとに500万円の合計額の営業保証金を、それぞれの事務所の最寄りの供託所に供託しなければならない。",
+  "営業保証金は、金銭による供託のみが認められ、有価証券で供託することはできない。",
+  "宅地建物取引業者と宅地建物取引業に関し取引をした者は、その取引により生じた債権に関し、業者の従業員も含めて営業保証金から弁済を受ける権利を有する。",
+  "宅地建物取引業者は、営業保証金を供託し、その旨を免許権者に届け出た後でなければ、その事業を開始してはならない。"
+]
+,
+ answer:3,
+ kai:[
+  "誤り。金額（本店1,000万・支店各500万）は正しいが、供託先は『主たる事務所の最寄りの供託所』に一括して供託する。支店分も含めて本店最寄りの供託所にまとめる点が要で、『それぞれの事務所の最寄りの供託所』は誤り。",
+  "誤り。営業保証金は金銭のほか、国債・地方債等の有価証券でも供託できる（評価額に一定の割合あり）。",
+  "誤り。還付を受けられるのは『宅建業に関し取引をした者』だが、宅建業者（取引の相手方たる業者）や従業員の給与債権等は還付の対象外。『従業員も含めて』が誤り。",
+  "正しい。営業保証金を供託し、その旨を免許権者に届け出た後でなければ事業を開始できない。"
+ ],
+ point:"営業保証金は〈本店1,000万・支店各500万〉を本店最寄りの供託所に〈金銭 or 有価証券〉で供託→届出後に開業。還付を受けられるのは『宅建業の取引から生じた債権を持つ者』で、宅建業者や従業員給与は対象外。保証協会（弁済業務保証金）との対比で覚える。"
+},
+{
+ id:"tg07", title:"媒介契約",
+ q:"宅地建物取引業者が宅地の売買の媒介の依頼を受けた場合の媒介契約に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "専任媒介契約の有効期間は、依頼者の申出があれば3月を超えることができる。",
+  "専任媒介契約を締結した宅地建物取引業者は、依頼者に対し、業務の処理状況を1週間に1回以上報告しなければならない。",
+  "専属専任媒介契約を締結した場合、宅地建物取引業者は、契約締結日から休業日を除き5日以内に、指定流通機構に当該物件を登録しなければならない。",
+  "一般媒介契約では、依頼者は同時に複数の業者に重ねて依頼することができない。"
+ ],
+ answer:2,
+ kai:[
+  "誤り。専任媒介契約の有効期間は3月が上限で、これを超える定めはできない（超える部分は3月に短縮）。依頼者の申出があっても延長は更新の手続による。",
+  "誤り。専任媒介の報告義務は『2週間に1回以上』。1週間に1回以上は専属専任媒介の報告頻度であり、専任と専属専任を入れ替えたひっかけ。",
+  "正しい。専属専任媒介契約は休業日を除き5日以内に指定流通機構へ登録する義務がある（専任媒介は7日以内）。",
+  "誤り。一般媒介契約は、複数の業者に重ねて依頼できる契約類型である。重ねて依頼できないのは専任・専属専任。"
+ ],
+ point:"媒介3類型の数字表：〈一般＝重複依頼OK・規制ゆるい〉〈専任＝有効期間3月・指定流通機構へ7日以内・報告2週に1回〉〈専属専任＝5日以内・報告1週に1回・自己発見取引も不可〉。専属専任が最も縛りが強い、と段階で覚える。"
+},
+{
+ id:"tg08", title:"重要事項の説明（35条）",
+ q:"宅地建物取引業者が行う重要事項の説明に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "重要事項の説明は、契約が成立した後、遅滞なく行わなければならない。",
+  "重要事項の説明は、宅地建物取引士であれば、専任の宅地建物取引士でなくても行うことができる。",
+  "重要事項の説明の相手方が宅地建物取引業者である場合でも、書面の交付に加えて口頭による説明を省略することはできない。",
+  "重要事項説明書には、説明をする宅地建物取引士が記名する必要はない。"
+ ],
+ answer:1,
+ kai:[
+  "誤り。重要事項の説明は『契約が成立するまでの間』に行わなければならない。契約後ではない。",
+  "正しい。重要事項の説明・記名は宅地建物取引士が行えばよく、専任である必要はない。",
+  "誤り。相手方が宅建業者の場合は、書面（35条書面）の交付のみで足り、口頭の説明を省略できる（業者間取引の特例）。",
+  "誤り。35条書面には宅地建物取引士の記名が必要。"
+ ],
+ point:"35条（重説）は〈契約成立前に〉〈宅建士が（専任でなくてよい）〉〈取引士証を提示して〉〈書面を交付して説明〉。相手が宅建業者なら説明は省略でき書面交付のみでOK。37条書面（契約書）との違い（35条は契約前・37条は契約後遅滞なく）を必ずセットで。"
+},
+{
+ id:"tg09", title:"クーリング・オフ",
+ q:"宅地建物取引業者が自ら売主となる宅地の売買契約について、買主が宅地建物取引業法第37条の2の規定（クーリング・オフ）により契約を解除する場合に関する次の記述のうち、正しいものはどれか。なお、買主は宅地建物取引業者ではないものとする。",
+ choices:[
+  "買主が宅地建物取引業者の事務所において買受けの申込みをした場合でも、クーリング・オフによる解除をすることができる。",
+  "クーリング・オフについて書面で告げられた日から起算して8日を経過したときは、原則として解除をすることができなくなる。",
+  "買主が宅地の引渡しを受ける前であれば、代金の全部を支払った後でも、クーリング・オフによる解除をすることができる。",
+  "クーリング・オフによる解除は、口頭で申し出ることによってその効力を生ずる。"
+ ],
+ answer:1,
+ kai:[
+  "誤り。業者の事務所等（専任宅建士の設置義務がある場所）で買受けの申込みをした場合は、クーリング・オフできない。",
+  "正しい。書面で告げられた日から起算して8日を経過すると解除できなくなる（告げられていなければ8日の制限は進行しない）。",
+  "誤り。『引渡しを受け、かつ、代金の全部を支払ったとき』はクーリング・オフできなくなる。両方そろうと不可。",
+  "誤り。クーリング・オフによる解除は書面（電磁的方法を含む）で行う必要があり、書面を発した時に効力を生ずる（発信主義）。"
+ ],
+ point:"クーリング・オフ不可になるのは〈①事務所等で申込み〉〈②書面告知から8日経過〉〈③引渡し＋代金全額支払い〉のいずれか。解除は書面で、発信主義（出した時点で成立）。8日の起算は『書面で告げられた日から』が要。"
+},
+{
+ id:"tg10", title:"報酬額の制限",
+ q:"宅地建物取引業者が受け取ることのできる報酬に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "売買の媒介の報酬限度額を計算する際の取引価額には、消費税相当額を含めて計算する。",
+  "宅地建物取引業者は、依頼者の依頼によらない通常の広告の料金についても、報酬とは別に請求することができる。",
+  "宅地建物取引業者は、報酬限度額を超えて報酬を受け取ってはならず、これに違反した場合は監督処分の対象となる。",
+  "居住用建物の貸借の媒介において、依頼者の承諾がなくても、貸主・借主双方からそれぞれ借賃の1月分の報酬を受け取ることができる。"
+ ],
+ answer:2,
+ kai:[
+  "誤り。報酬計算の基礎となる取引価額は『消費税抜き（税抜き）』の本体価格で計算する。",
+  "誤り。依頼者の『依頼によらない』広告料は請求できない。依頼者の依頼に基づく特別の広告の料金は別途請求できる。",
+  "正しい。報酬限度額を超える受領は禁止され、違反は業務停止等の監督処分・罰則の対象となる。",
+  "誤り。居住用建物の貸借の媒介では、原則として依頼者の一方から借賃の0.5月分が限度（承諾があれば1月分まで）。双方から1月分ずつ無条件に受け取ることはできない。"
+ ],
+ point:"報酬は〈取引価額は税抜きで計算〉〈速算式：400万円超は取引価額×3％＋6万円（×消費税）〉〈広告料は依頼があった分だけ別途可〉〈居住用の貸借媒介は原則一方0.5月分〉。限度超過は監督処分＋罰則。"
+},
+{
+ id:"tg11", title:"免許の種類と更新",
+ q:"宅地建物取引業の免許に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "一つの都道府県の区域内にのみ事務所を設置する場合は、設置する事務所の数が複数であっても、当該都道府県知事の免許を受ける。",
+  "二以上の都道府県の区域内に事務所を設置してその事業を営もうとする場合は、いずれかの都道府県知事の免許を受ければよい。",
+  "宅地建物取引業の免許の有効期間は3年であり、有効期間の満了後も引き続き業を営もうとする者は、免許の更新を受けなければならない。",
+  "免許の更新の申請は、免許の有効期間満了の日の30日前から当該満了の日までの間に行わなければならない。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。免許の種類は事務所が所在する都道府県の数で決まる。1つの都道府県内なら事務所が何か所あっても知事免許。",
+  "誤り。2以上の都道府県に事務所を設置する場合は国土交通大臣の免許が必要。",
+  "誤り。免許の有効期間は5年。3年ではない。",
+  "誤り。更新の申請は有効期間満了の日の90日前から30日前までの間に行う。"
+ ],
+ point:"免許は〈1つの都道府県内→知事免許／2以上の都道府県→大臣免許〉。事務所の『数』ではなく『またぐ都道府県の数』で決まる。有効期間5年・更新は90日前〜30日前。なお更新申請後に期間が満了しても処分まで従前の免許は有効。"
+},
+{
+ id:"tg12", title:"変更の届出・廃業等の届出",
+ q:"宅地建物取引業者に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "宅地建物取引業者は、事務所に置く専任の宅地建物取引士に変更があった場合、30日以内にその旨を免許権者に届け出なければならない。",
+  "法人である宅地建物取引業者が合併により消滅した場合、合併後存続する法人の代表役員が、消滅の日から30日以内にその旨を免許権者に届け出なければならない。",
+  "宅地建物取引業者が死亡した場合、その相続人は、死亡の日から30日以内にその旨を免許権者に届け出なければならない。",
+  "宅地建物取引業者が破産手続開始の決定を受けた場合、その届出は、破産管財人ではなく当該業者本人が行わなければならない。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。専任の宅地建物取引士の氏名は宅地建物取引業者名簿の登載事項であり、変更があれば30日以内に変更の届出をしなければならない。",
+  "誤り。合併消滅の場合の廃業等の届出は、『消滅した法人を代表する役員であった者』が行う。存続会社の代表役員ではない。届出期限が30日以内である点は正しいが、届出義務者が誤り。",
+  "誤り。業者が死亡した場合の廃業等の届出は、相続人が『その事実を知った日から』30日以内に行う。「死亡の日から」ではない。",
+  "誤り。破産手続開始の決定の場合の廃業等の届出は、破産管財人が行う。本人ではない。"
+ ],
+ point:"変更の届出（名簿登載事項の変更）は30日以内。廃業等の届出の『誰が・いつから』は事由ごとに違う：〈死亡＝相続人・知った日から30日〉〈合併消滅＝消滅法人の代表役員だった者・30日〉〈破産＝破産管財人・30日〉〈解散＝清算人〉。死亡だけ起算点が『知った日から』。"
+},
+{
+ id:"tg13", title:"広告に関する規制",
+ q:"宅地建物取引業者の広告に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "宅地の造成又は建物の建築に関する工事の完了前においては、当該工事に必要な許可・確認等の処分があった後でなければ、当該工事に係る宅地又は建物の売買その他の業務に関する広告をしてはならない。",
+  "宅地建物取引業者は、実際のものよりも著しく優良又は有利であると人を誤認させるような表示をした場合でも、それにより実際に損害を受けた者がいなければ、監督処分を受けることはない。",
+  "テレビやインターネット等の広告であっても、誇大広告等の禁止の規定は適用されるが、これらに違反しても罰則の適用はない。",
+  "宅地建物取引業者は、自ら売主となる物件についてのみ取引態様の別を明示する義務があり、媒介の場合には明示義務はない。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。工事完了前は、必要な開発許可・建築確認等の処分があった後でなければ、その物件に関する広告をしてはならない（広告開始時期の制限）。",
+  "誤り。誇大広告等の禁止は、誤認させるおそれのある表示自体を禁じるもので、実際に損害が発生したか否かを問わず違反となり、監督処分・罰則の対象となる。",
+  "誤り。媒体を問わず誇大広告等の禁止は適用され、違反には監督処分に加えて罰則（6月以下の懲役又は100万円以下の罰金等）の適用がある。",
+  "誤り。取引態様の別（自ら売主か、代理か、媒介か）の明示義務は、広告をするときと注文を受けたとき、すべての取引態様について課される。"
+ ],
+ point:"広告規制は3点〈①広告開始時期の制限：許可・確認後でないと広告不可〉〈②誇大広告等の禁止：おそれがあれば違反・損害不要・罰則あり〉〈③取引態様の明示：広告時と注文時の両方で明示〉。なお契約締結時期の制限（許可等の前は契約も不可）は『自ら貸借を除く』点も対比で。"
+},
+{
+ id:"tg14", title:"クーリング・オフの場所・特約",
+ q:"宅地建物取引業者Aが自ら売主となり、宅地建物取引業者でない買主Bとの間で締結した宅地の売買契約について、クーリング・オフに関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "Bが、Aの申し出により喫茶店で買受けの申込みをした場合、Aの事務所でその後に契約を締結したとしても、Bはクーリング・オフによる解除をすることができる。",
+  "クーリング・オフができる期間について、AB間で「書面で告げられた日から起算して10日間とする」旨の特約をした場合、当該特約は買主に不利であるため無効である。",
+  "Bが、自ら指定した自宅において買受けの申込みをした場合、Bはクーリング・オフによる解除をすることができる。",
+  "クーリング・オフによる解除があった場合、Aは、Bに対して、契約の解除に伴う損害賠償又は違約金の支払を請求することができる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。クーリング・オフの可否は『申込みをした場所』で判断する。喫茶店（事務所等以外）で申込みをした以上、その後事務所で契約しても解除できる。",
+  "誤り。『8日』を『10日』に延ばす特約は買主に有利であり有効。買主に不利な特約のみが無効となる。",
+  "誤り。買主が『自ら申し出て』自宅・勤務先で説明を受け申込みをした場合は、事務所等に準じて扱われ、クーリング・オフできない。",
+  "誤り。クーリング・オフによる解除があった場合、業者は損害賠償・違約金を請求できず、受領済みの金銭は速やかに返還しなければならない。"
+ ],
+ point:"クーリング・オフは『申込みの場所』が全て（契約場所ではない）。不可になるのは〈事務所等・買主が自ら申し出た自宅や勤務先・書面告知から8日経過・引渡し＋代金全額〉。8日→10日は有利で有効、業者は損害賠償請求不可・金銭は返還。"
+},
+{
+ id:"tg15", title:"手付金等の保全措置",
+ q:"宅地建物取引業者Aが自ら売主となり、宅地建物取引業者でない買主との間で締結する宅地又は建物の売買契約に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "Aは、売買契約の締結に際して、代金の額の10分の2を超える額の手付を受領することができない。",
+  "工事完了前の物件（未完成物件）の売買において、Aが受領しようとする手付金等の額が代金の額の100分の10を超えるが1,000万円以下である場合、Aは手付金等の保全措置を講じる必要はない。",
+  "手付金等の保全措置が必要であるにもかかわらずAが保全措置を講じない場合でも、買主は手付金等を支払わなければならない。",
+  "買主が手付を放棄して契約を解除する場合、Aは、自らが履行に着手していなくても、これを拒むことができる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。自ら売主規制により、業者は代金の2割（10分の2）を超える手付を受領できない。超える部分は無効。",
+  "誤り。未完成物件の保全措置が不要なのは、手付金等の額が代金の『5％以下かつ1,000万円以下』のとき。100分の10（10％）を超える場合は当然保全が必要。なお完成物件の基準が10％（かつ1,000万円以下）。",
+  "誤り。保全措置が必要なのに講じられない場合、買主は手付金等を支払わないことができる。",
+  "誤り。手付は解約手付と推定され、相手方が履行に着手するまでは、買主は手付放棄により、売主は手付倍返しにより解除できる。Aが履行に着手していなければ買主は解除でき、Aは拒めない。"
+ ],
+ point:"自ら売主の手付ルール〈①額は代金の2割まで②解約手付として扱う（相手が履行着手まで解除可）〉。保全措置の要否：〈未完成＝5％超または1,000万円超で必要／完成＝10％超または1,000万円超で必要〉。未完成の方が基準が厳しい（5％）。"
+},
+{
+ id:"tg16", title:"書面の電子化（改正）",
+ q:"宅地建物取引業法に基づく書面の交付等に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "宅地建物取引業者は、相手方の承諾を得れば、重要事項説明書（35条書面）及び37条書面のいずれについても、書面の交付に代えて電磁的方法により提供することができる。",
+  "37条書面には、宅地建物取引士の押印が必要である。",
+  "テレビ会議等のITを活用した重要事項説明（IT重説）を行う場合には、宅地建物取引士証の提示を省略することができる。",
+  "重要事項説明書を電磁的方法により提供する場合、宅地建物取引士による記名は不要となる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。2022年5月施行の改正により、相手方の承諾を得れば、35条書面・37条書面・媒介契約書面（34条の2書面）のいずれも電磁的方法による提供が可能となった。",
+  "誤り。同改正により、37条書面・35条書面への宅地建物取引士の押印は不要となった。",
+  "誤り。IT重説であっても、宅地建物取引士証の提示は必要（画面上での提示等）。提示義務自体は省略されない。",
+  "誤り。電磁的方法で提供する場合でも、宅地建物取引士による記名（電子的な記名）は必要。押印は不要だが記名は残る。"
+ ],
+ point:"2022年5月改正の要点〈①35条・37条・34条の2書面とも相手方の承諾で電磁的方法による提供が可能②これらの書面の宅建士の押印は不要（記名は必要）〉。IT重説でも取引士証の提示は必要。『書面でなければ無効』『押印が必要』という古い肢は改正で誤りになった点が狙われる。"
+},
+{
+ id:"tg17", title:"案内所等の規制",
+ q:"宅地建物取引業者Aが、一団の宅地の分譲を行うため、案内所を設置して契約の申込みを受ける場合に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "Aは、当該案内所に、成年者である専任の宅地建物取引士を少なくとも1人置かなければならない。",
+  "Aは、当該案内所に、業務に従事する者5人に1人以上の割合で専任の宅地建物取引士を置かなければならない。",
+  "Aは、当該案内所について、その業務を開始する日の30日前までに、免許権者及び案内所の所在地を管轄する都道府県知事に届け出なければならない。",
+  "Aは、当該案内所には標識を掲げる必要がなく、本店にのみ標識を掲げれば足りる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。契約の申込みを受ける案内所には、成年者である専任の宅地建物取引士を少なくとも1人置けば足りる（事務所のような『5人に1人』ではない）。",
+  "誤り。『5人に1人』は事務所の基準。契約・申込みを受ける案内所等は最低1人でよい。",
+  "誤り。案内所等の届出（50条2項）は、業務を開始する日の『10日前まで』に、免許権者と案内所所在地の知事の双方に行う。30日前ではない。",
+  "誤り。案内所には標識を掲げる必要がある。標識の掲示は事務所以外の一定の場所にも義務付けられる。"
+ ],
+ point:"案内所等（契約・申込みを受ける場所）の3つの義務〈①専任宅建士を1人以上（事務所の5人に1人とは別）②業務開始日の10日前までに免許権者＋所在地の知事へ届出（50条2項）③標識の掲示〉。契約等を行わない（広告・案内のみの）案内所は①②不要・③標識のみ必要。"
+},
+{
+ id:"tg18", title:"保証協会",
+ q:"宅地建物取引業保証協会（以下「保証協会」という。）に関する次の記述のうち、宅地建物取引業法の規定によれば、正しいものはどれか。",
+ choices:[
+  "保証協会の社員になろうとする宅地建物取引業者は、その加入しようとする日までに、弁済業務保証金分担金を当該保証協会に納付しなければならない。",
+  "弁済業務保証金分担金は、主たる事務所につき1,000万円、その他の事務所につき事務所ごとに500万円である。",
+  "保証協会の社員と宅地建物取引業に関し取引をした者は、その取引により生じた債権について、当該社員が納付した分担金の額を限度として弁済を受ける権利を有する。",
+  "弁済業務保証金分担金は、金銭のほか、国債証券等の有価証券をもって納付することができる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。保証協会の社員になろうとする者は、加入しようとする日までに弁済業務保証金分担金を納付しなければならない。",
+  "誤り。分担金は主たる事務所60万円・その他の事務所ごとに30万円。1,000万円・500万円は営業保証金（供託）の額。",
+  "誤り。還付の限度額は『その社員が社員でないとしたならば供託すべき営業保証金の額』に相当する額（本店1,000万＋支店500万で計算）であり、納付した分担金（60万・30万）の額が限度ではない。",
+  "誤り。弁済業務保証金分担金は『金銭のみ』で納付する。有価証券は不可。"
+ ],
+ point:"保証協会の対比〈分担金は本店60万・支店30万・金銭のみ・加入日までに納付〉。ただし還付の限度額は分担金ではなく『営業保証金相当額（本店1,000万＋支店500万）』で計算される点が最大のひっかけ。協会は分担金を受け、供託所に弁済業務保証金を供託する二段構造。"
+},
+{
+ id:"tk01", title:"詐欺・強迫と第三者",
+ q:"AがBに甲土地を売却した場合に関する次の記述のうち、民法の規定及び判例によれば、正しいものはどれか。",
+ choices:[
+  "AがBの詐欺により甲土地を売却し、Bがこれを善意無過失の第三者Cに転売した場合、Aは詐欺による取消しをもってCに対抗することができない。",
+  "AがBの強迫により甲土地を売却し、Bがこれを善意無過失の第三者Cに転売した場合、Aは強迫による取消しをもってCに対抗することができない。",
+  "第三者DがAを欺いてAB間の売買契約を締結させた場合、相手方Bがその事実を知らず、かつ知ることができなかったときであっても、Aは詐欺を理由に取り消すことができる。",
+  "AがBに甲土地を売却する意思表示に錯誤があり、その錯誤がAの重大な過失によるものである場合、Aは原則として常に取り消すことができる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。詐欺による取消しは、善意でかつ過失がない第三者に対抗できない（民法96条3項）。善意無過失のCは保護され、Aは対抗できない。",
+  "誤り。強迫による取消しは、善意無過失の第三者に対しても対抗できる。詐欺と異なり強迫の被害者には帰責性がないため、第三者保護規定がない。",
+  "誤り。第三者による詐欺の場合、相手方Bがその事実を知り、又は知ることができたとき（悪意・有過失）に限り取り消すことができる（民法96条2項）。Bが善意無過失なら取り消せない。",
+  "誤り。錯誤が表意者の重大な過失によるものである場合は、原則として取り消すことができない（民法95条3項）。例外（相手方が悪意・重過失、相手方も同一の錯誤等）はあるが『常に取り消せる』は誤り。"
+ ],
+ point:"意思表示と第三者の対抗：〈詐欺・錯誤の取消し→善意無過失の第三者に対抗不可（第三者が保護）〉〈強迫の取消し→善意無過失の第三者にも対抗可（被害者を厚く保護）〉。第三者詐欺は相手方が悪意・有過失のときだけ取消可。錯誤は重過失あると原則取消不可。"
+},
+{
+ id:"tk02", title:"制限行為能力者",
+ q:"制限行為能力者に関する次の記述のうち、民法の規定によれば、正しいものはどれか。",
+ choices:[
+  "未成年者が法定代理人の同意を得ずに行った契約は、原則として、本人又は法定代理人が取り消すことができる。",
+  "成年被後見人が行った法律行為は、日用品の購入その他日常生活に関する行為であっても、成年後見人が取り消すことができる。",
+  "被保佐人が保佐人の同意を得ずに不動産を売却した場合、その売買契約は当初から無効である。",
+  "制限行為能力者が、行為能力者であると相手方を信じさせるため詐術を用いたときであっても、その行為を取り消すことができる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。未成年者が法定代理人の同意を得ずにした法律行為は取り消すことができる（民法5条2項）。取消権者は本人・法定代理人等。",
+  "誤り。成年被後見人の行為は取り消せるが、日用品の購入その他日常生活に関する行為は取り消すことができない（民法9条ただし書）。",
+  "誤り。被保佐人が同意を得ずにした重要な財産行為（不動産売却等）は『取り消すことができる』のであって、当初から無効ではない。取り消すまでは有効。",
+  "誤り。制限行為能力者が詐術を用いて相手方を誤信させたときは、その行為を取り消すことができない（民法21条）。"
+ ],
+ point:"取消しと無効の区別が頻出。制限行為能力者の行為は原則『取消し可能』（無効ではない）。例外〈成年被後見人の日用品購入＝取消不可〉〈詐術を用いた場合＝取消不可〉。被保佐人は重要な財産行為に保佐人の同意が必要。"
+},
+{
+ id:"tk03", title:"代理",
+ q:"代理に関する次の記述のうち、民法の規定及び判例によれば、正しいものはどれか。",
+ choices:[
+  "代理人が本人のためにすることを示さないでした意思表示は、原則として、代理人自身のためにしたものとみなされる。",
+  "代理人は、行為能力者でなければならず、未成年者を代理人とすることはできない。",
+  "無権代理人がした契約は、本人が追認しても、その効力を本人に対して生じることはない。",
+  "復代理人を選任した任意代理人は、復代理人の行為について、本人に対して一切責任を負わない。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。代理人が顕名をしないでした意思表示は、原則として代理人自身のためにしたものとみなされる（民法100条本文）。ただし相手方が代理であることを知り又は知り得たときは本人に効果が帰属する。",
+  "誤り。代理人は行為能力者であることを要しない（民法102条）。未成年者を代理人とすることもでき、その行為は制限行為能力を理由に取り消せない。",
+  "誤り。無権代理行為は、本人が追認すれば契約の時にさかのぼって本人に効力を生じる（民法113条・116条）。",
+  "誤り。任意代理人が（本人の許諾を得て、又はやむを得ない事由で）復代理人を選任した場合でも、債務不履行の一般原則に従い責任を負うことがある。『一切責任を負わない』は誤り。"
+ ],
+ point:"代理の急所〈①顕名がないと原則代理人自身に効果（相手方が代理と知り得たなら本人に）②代理人は行為能力者でなくてよい③無権代理は本人の追認で遡及的に有効〉。代理人の制限行為能力を理由に代理行為は取り消せない点が頻出。"
+},
+{
+ id:"tk04", title:"時効",
+ q:"消滅時効及び取得時効に関する次の記述のうち、民法の規定及び判例によれば、正しいものはどれか。",
+ choices:[
+  "所有権は、消滅時効にかかることはない。",
+  "時効の利益は、時効が完成する前にあらかじめ放棄することができる。",
+  "他人の物を20年間占有した者は、その占有の開始時に善意無過失であれば、所有権を取得する。",
+  "債権は、債権者が権利を行使することができることを知った時から10年間行使しないときに、時効によって消滅する。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。所有権は消滅時効にかからない（恒久的な権利。ただし他人の取得時効により反射的に失われることはある）。",
+  "誤り。時効の利益は、時効が完成する前にあらかじめ放棄することができない（民法146条）。完成後の放棄は可能。",
+  "誤り。占有開始時に善意無過失なら『10年』で取得時効が完成する。20年は悪意又は有過失の場合の期間。本肢は期間と要件が噛み合っていない。",
+  "誤り。債権の消滅時効は『権利を行使できることを知った時から5年』又は『権利を行使できる時から10年』のいずれか早い方（民法166条1項）。知った時からは5年。"
+ ],
+ point:"時効の数字〈取得時効：善意無過失なら10年・悪意or有過失なら20年〉〈債権の消滅時効：主観起算（知った時）5年・客観起算（行使可能時）10年〉。時効利益の放棄は完成前は不可・完成後は可。所有権は消滅時効にかからない。"
+},
+{
+ id:"tk05", title:"物権変動と対抗要件",
+ q:"不動産の物権変動に関する次の記述のうち、民法の規定及び判例によれば、正しいものはどれか。",
+ choices:[
+  "不動産が二重に譲渡された場合、譲受人相互間では、原則として先に所有権移転登記を備えた者が所有権の取得を対抗することができる。",
+  "不動産の取得を第三者に対抗するためには、常に占有を開始していなければならない。",
+  "売買契約に基づき所有権を取得した者は、登記がなくても、その不動産を不法に占有している者に対して明渡しを請求することができない。",
+  "詐欺による取消し後に出現した第三者に対しては、取消しを行った者は、登記がなくても所有権の復帰を対抗することができる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。二重譲渡では先に登記を備えた者が勝つ（民法177条。対抗要件は登記）。",
+  "誤り。不動産の物権変動の対抗要件は『登記』であって占有ではない。",
+  "誤り。不法占有者（無権利者）は民法177条の『第三者』に当たらないため、登記がなくても明渡しを請求できる。",
+  "誤り。取消し後の第三者との関係は対抗問題となり、取消権者は登記を備えなければ所有権の復帰を対抗できない（判例）。"
+ ],
+ point:"177条の対抗要件は『登記』。先に登記した者が勝つ（二重譲渡）。ただし『第三者』に当たらない者（不法占拠者・無権利者・背信的悪意者）には登記なしで対抗可。取消し前の第三者と取消し後の第三者で処理が分かれる（後の第三者は対抗問題＝登記が必要）。"
+},
+{
+ id:"tk06", title:"抵当権",
+ q:"抵当権に関する次の記述のうち、民法の規定及び判例によれば、正しいものはどれか。",
+ choices:[
+  "抵当権は、債務者又は第三者が占有を移転しないで債務の担保に供した不動産について、抵当権者が優先弁済を受ける権利である。",
+  "同一の不動産について複数の抵当権が設定された場合、その順位は、各抵当権設定契約の締結日の先後によって決まる。",
+  "抵当権の効力は、抵当地上に存在する建物には、原則として及ぶ。",
+  "抵当不動産の被担保債権が弁済により消滅しても、抵当権は当然には消滅しない。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。抵当権は、目的物の占有を移転せずに（債務者が使用を続けながら）担保に供し、抵当権者が優先弁済を受ける担保物権（民法369条）。",
+  "誤り。抵当権の順位は『登記の前後』によって決まる（民法373条）。契約締結日ではない。",
+  "誤り。土地と建物は別個の不動産であり、土地に設定した抵当権の効力は、原則としてその土地上の建物には及ばない。",
+  "誤り。抵当権は担保物権であり付従性を有するため、被担保債権が弁済等で消滅すれば抵当権も当然に消滅する。"
+ ],
+ point:"抵当権の性質〈①占有を移転しない（債務者が使い続けられる）②順位は登記の前後③付従性：被担保債権が消えれば抵当権も消える④随伴性・不可分性・物上代位性〉。土地と建物は別個の不動産（土地の抵当権は建物に及ばない）が頻出。法定地上権の要件も重要。"
+},
+{
+ id:"tk07", title:"賃貸借・借地借家法（借家）",
+ q:"建物の賃貸借（借地借家法の適用があるもの）に関する次の記述のうち、民法及び借地借家法の規定によれば、正しいものはどれか。",
+ choices:[
+  "建物の賃借人は、建物の引渡しを受けていれば、その後に建物の所有権を取得した者に対し、賃借権を対抗することができる。",
+  "期間の定めのある建物賃貸借において、賃貸人が更新を拒絶するためには、正当の事由は不要である。",
+  "造作買取請求権を賃借人が行使しない旨の特約は、賃借人に不利であるため無効である。",
+  "建物の賃借人が賃貸人の承諾を得て建物を転貸した場合、賃貸人と賃借人が合意により賃貸借契約を解除すれば、原則として転借人にその解除を対抗することができる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。借地借家法では、建物の賃貸借は『建物の引渡し』を受けていれば、その後建物の所有権を取得した者（新所有者）に賃借権を対抗できる（借地借家法31条）。",
+  "誤り。賃貸人からの更新拒絶・解約申入れには『正当の事由』が必要（借地借家法28条）。",
+  "誤り。造作買取請求権を排除する特約は有効（任意規定。借地借家法37条が排除を許容）。賃借人に不利でも有効とされる点が頻出のひっかけ。",
+  "誤り。適法な転貸借がある場合、賃貸人と賃借人の合意解除を原則として転借人に対抗できない（判例）。転借人を保護するため。"
+ ],
+ point:"借家の対抗要件は『建物の引渡し』（登記不要）。賃貸人からの更新拒絶・解約には『正当の事由』が必要。造作買取請求権の排除特約は有効（数少ない『不利でもOK』の特約）。適法な転貸では賃貸人・賃借人の合意解除を転借人に対抗できない。"
+},
+{
+ id:"tk08", title:"借地借家法（借地）",
+ q:"借地借家法に定める借地権に関する次の記述のうち、正しいものはどれか。",
+ choices:[
+  "借地権の存続期間は30年以上とされ、これより短い期間を定めた場合は、存続期間は30年となる。",
+  "借地権者は、借地上の建物について自己名義の登記を備えていなくても、土地の賃借権の登記がなければ、第三者に借地権を対抗することができない。",
+  "一般定期借地権は、存続期間を30年として設定することができる。",
+  "事業用定期借地権は、居住の用に供する建物の所有を目的として設定することができる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。借地権の存続期間は30年以上（当事者がこれより長い期間を定めればその期間）。30年より短い定めや期間の定めがない場合は30年となる（借地借家法3条）。",
+  "誤り。借地権者は、土地賃借権の登記がなくても、借地上の建物について自己名義の登記を備えていれば借地権を第三者に対抗できる（借地借家法10条）。",
+  "誤り。一般定期借地権は存続期間を『50年以上』として設定する（借地借家法22条）。30年では設定できない。",
+  "誤り。事業用定期借地権は『事業の用に供する建物』の所有が目的で、居住用建物は対象外（借地借家法23条）。"
+ ],
+ point:"借地の存続期間は最低30年。借地権の対抗要件は『借地上の建物の自己名義の登記』でよい（土地賃借権の登記は不要）。定期借地3種〈一般定期＝50年以上／事業用＝10年以上50年未満・居住用不可／建物譲渡特約＝30年以上〉。"
+},
+{
+ id:"tk09", title:"相続",
+ q:"相続に関する次の記述のうち、民法の規定によれば、正しいものはどれか。",
+ choices:[
+  "被相続人に配偶者と子2人がいる場合、配偶者の法定相続分は2分の1であり、子はそれぞれ4分の1ずつとなる。",
+  "相続の放棄をしようとする者は、相続の開始があったことを知った時から3か月以内に、その旨を相続人全員に対して通知しなければならない。",
+  "被相続人の兄弟姉妹には、遺留分が認められる。",
+  "相続人が複数いる場合、遺産分割が成立するまでの間、相続財産は最初の相続人が単独で管理する。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。配偶者と子が相続人の場合、配偶者2分の1・子2分の1。子が2人なら各自4分の1ずつとなる。",
+  "誤り。相続放棄は、自己のために相続の開始があったことを知った時から3か月以内に『家庭裁判所に申述』して行う（民法915条・938条）。相続人全員への通知ではない。",
+  "誤り。兄弟姉妹には遺留分が認められない（民法1042条）。遺留分があるのは配偶者・子（直系卑属）・直系尊属。",
+  "誤り。遺産分割前の相続財産は共同相続人の共有に属する（民法898条）。最初の相続人が単独管理するのではない。"
+ ],
+ point:"法定相続分〈配偶者と子：各1/2（子は頭割り）／配偶者と直系尊属：2/3・1/3／配偶者と兄弟姉妹：3/4・1/4〉。相続放棄は3か月以内に家庭裁判所へ申述。遺留分は兄弟姉妹にはない。遺産分割前は共同相続人の共有。"
+},
+{
+ id:"tk10", title:"契約不適合責任",
+ q:"売買契約における売主の担保責任（契約不適合責任）に関する次の記述のうち、民法の規定によれば、正しいものはどれか。なお、売主は宅地建物取引業者ではないものとする。",
+ choices:[
+  "引き渡された目的物が種類又は品質に関して契約の内容に適合しない場合、買主は、売主に対し、目的物の修補、代替物の引渡し又は不足分の引渡しによる履行の追完を請求することができる。",
+  "買主は、目的物の契約不適合を知った時から1年以内にその旨を売主に通知しなければ、いかなる場合も追完請求をすることができないが、損害賠償請求はいつでもできる。",
+  "目的物の契約不適合について、買主は、まず代金減額請求をしなければ、損害賠償請求や契約の解除をすることができない。",
+  "契約不適合が買主の責めに帰すべき事由によるものであっても、買主は売主に対して履行の追完を請求することができる。"
+ ],
+ answer:0,
+ kai:[
+  "正しい。種類・品質の契約不適合の場合、買主は修補・代替物の引渡し・不足分の引渡しのいずれかによる履行の追完を請求できる（民法562条）。",
+  "誤り。種類・品質の不適合は『知った時から1年以内に通知』しないと追完・減額・損害賠償・解除のいずれも原則できなくなる。損害賠償だけ別扱いで『いつでも』とはならない。",
+  "誤り。追完請求・代金減額請求・損害賠償請求・契約の解除は、それぞれ要件を満たせば選択でき、減額請求が前提条件ではない。",
+  "誤り。契約不適合が買主の責めに帰すべき事由による場合、買主は追完請求をすることができない（民法562条2項）。"
+ ],
+ point:"契約不適合責任（2020年改正）。買主の4つの手段〈追完請求・代金減額請求・損害賠償請求・解除〉。種類品質の不適合は『知った時から1年以内に通知』が必要（数量・権利の不適合は通知期間の制限なし）。買主の帰責事由による不適合は追完請求不可。宅建業者が自ら売主なら引渡しから2年以上の特約のみ有効（8種制限）。"
+}
+];
+
+const CATS = [
+ {key:"tg", name:"宅建業法", short:"宅建業法"},
+ {key:"tk", name:"権利関係", short:"権利関係"}
+];
+function catOf(q){ return CATS.find(c=>q.id.startsWith(c.key)); }
+
+const STORE_KEY = "takken-quiz-v2";
+let progress = {};
+let session = null;
+const hasClaudeStorage = (typeof window.storage !== "undefined") && window.storage && (typeof window.storage.get === "function");
+
+async function loadProgress(){
+  if(hasClaudeStorage){
+    try{ const r = await window.storage.get(STORE_KEY); if(r && r.value) progress = JSON.parse(r.value); }catch(e){ progress = {}; }
+  }else{
+    try{ const v = localStorage.getItem(STORE_KEY); if(v) progress = JSON.parse(v); }catch(e){ progress = {}; }
+  }
+}
+async function saveProgress(){
+  if(hasClaudeStorage){
+    try{ await window.storage.set(STORE_KEY, JSON.stringify(progress)); }catch(e){}
+  }else{
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(progress)); }catch(e){}
+  }
+}
+async function deleteProgress(){
+  if(hasClaudeStorage){ try{ await window.storage.delete(STORE_KEY); }catch(e){} }
+  else{ try{ localStorage.removeItem(STORE_KEY); }catch(e){} }
+}
+
+const $ = id => document.getElementById(id);
+function show(name){
+  ["loading","home","quiz","result"].forEach(s=>{ $("screen-"+s).classList.toggle("hidden", s!==name); });
+  $("next-bar").classList.add("hidden");
+  $("result-bar").classList.toggle("hidden", name!=="result");
+  window.scrollTo(0,0);
+}
+function wrongIndices(){
+  return QUESTIONS.map((q,i)=>i).filter(i=>{ const p = progress[QUESTIONS[i].id]; return p && p.last === "x"; });
+}
+function renderHome(){
+  const answered = QUESTIONS.filter(q=>progress[q.id]).length;
+  const lastResults = QUESTIONS.map(q=>progress[q.id]).filter(Boolean);
+  const lastCorrect = lastResults.filter(p=>p.last==="o").length;
+  const rate = lastResults.length ? Math.round(lastCorrect/lastResults.length*100) : null;
+  const wrongs = wrongIndices().length;
+  $("st-answered").innerHTML = answered + '<span class="unit">問</span>';
+  $("st-rate").innerHTML = (rate===null?"–":rate) + '<span class="unit">%</span>';
+  $("st-wrong").innerHTML = wrongs + '<span class="unit">問</span>';
+  $("btn-review").classList.toggle("disabled", wrongs===0);
+  const menu = $("cat-menu");
+  menu.innerHTML = "";
+  CATS.forEach(cat=>{
+    const list = QUESTIONS.filter(q=>q.id.startsWith(cat.key));
+    const done = list.filter(q=>progress[q.id]).length;
+    const ok = list.filter(q=>progress[q.id] && progress[q.id].last==="o").length;
+    const btn = document.createElement("button");
+    btn.className = "menu-btn";
+    btn.innerHTML = cat.name + '<span class="desc">全'+list.length+'問　解答済み '+done+'問・直近○ '+ok+'問</span>';
+    btn.addEventListener("click", ()=>startSession(list.map(q=>QUESTIONS.indexOf(q))));
+    menu.appendChild(btn);
+  });
+  show("home");
+}
+function startSession(order){ session = {order, pos:0, results:[]}; renderQuestion(); show("quiz"); }
+function renderQuestion(){
+  const idx = session.order[session.pos];
+  const q = QUESTIONS[idx];
+  const perm = [0,1,2,3];
+  for(let i=perm.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [perm[i],perm[j]]=[perm[j],perm[i]]; }
+  session.perm = perm;
+  const cat = catOf(q);
+  const numInCat = QUESTIONS.filter(x=>x.id.startsWith(cat.key)).findIndex(x=>x.id===q.id) + 1;
+  $("q-no").textContent = "問 " + numInCat + "　" + q.title;
+  $("q-prog").textContent = cat.short + "　" + (session.pos+1) + " / " + session.order.length;
+  $("q-text").textContent = q.q;
+  $("feedback").classList.add("hidden");
+  const ul = $("choices"); ul.innerHTML = "";
+  const alphas = ["１","２","３","４"];
+  perm.forEach((orig,i)=>{
+    const li = document.createElement("li");
+    li.className = "choice";
+    li.innerHTML = '<span class="alpha">'+alphas[i]+'</span><span>'+q.choices[orig]+'</span>';
+    li.addEventListener("click", ()=>pick(i));
+    ul.appendChild(li);
+  });
+  $("next-bar").classList.add("hidden");
+}
+function markSVG(ok){
+  const o = '<svg viewBox="0 0 48 48"><circle class="stroke" cx="24" cy="24" r="18" transform="rotate(-90 24 24)"/></svg>';
+  const x = '<svg viewBox="0 0 48 48"><path class="stroke" d="M10 10 L38 38 M38 10 L10 38"/></svg>';
+  return '<span class="mark">'+(ok?o:x)+'</span>';
+}
+async function pick(i){
+  const idx = session.order[session.pos];
+  const q = QUESTIONS[idx];
+  const perm = session.perm;
+  const ok = (perm[i] === q.answer);
+  const correctPos = perm.indexOf(q.answer);
+  [...$("choices").children].forEach((li)=>{ li.classList.add("locked","dim"); li.replaceWith(li.cloneNode(true)); });
+  const fresh = [...$("choices").children];
+  fresh[i].classList.add("picked"); fresh[i].classList.remove("dim");
+  fresh[correctPos].classList.remove("dim");
+  fresh[i].insertAdjacentHTML("afterbegin", markSVG(ok));
+  if(!ok){ fresh[correctPos].insertAdjacentHTML("afterbegin", '<span class="mark" style="animation-delay:.2s"><svg viewBox="0 0 48 48"><circle class="stroke" cx="24" cy="24" r="18" transform="rotate(-90 24 24)"/></svg></span>'); }
+  $("verdict").textContent = ok ? "正　解" : "不正解";
+  $("q-point").textContent = q.point || "";
+  const alphas = ["１","２","３","４"];
+  $("kai-list").innerHTML = perm.map((orig,j)=> '<p class="kai-item"><b>'+alphas[j]+'</b>　<span class="ox">'+(orig===q.answer?"○":"×")+'</span>'+q.kai[orig]+'</p>').join("");
+  $("feedback").classList.remove("hidden");
+  session.results.push({idx, ok});
+  const p = progress[q.id] || {c:0,w:0,last:null};
+  if(ok){p.c++;}else{p.w++;}
+  p.last = ok ? "o":"x";
+  progress[q.id] = p;
+  await saveProgress();
+  $("btn-next").textContent = (session.pos === session.order.length-1) ? "採点結果を見る" : "次の問題へ";
+  $("next-bar").classList.remove("hidden");
+}
+function nextQuestion(){ if(session.pos === session.order.length-1){ renderResult(); }else{ session.pos++; renderQuestion(); } }
+function renderResult(){
+  const total = session.results.length;
+  const correct = session.results.filter(r=>r.ok).length;
+  $("r-correct").textContent = correct; $("r-total").textContent = total;
+  const rate = total? correct/total : 0;
+  $("r-cap").textContent = rate===1 ? "全問正解！お見事" : rate>=0.7 ? "合格ライン水準。よい調子" : "解説を読めば十分。焦らずに";
+  $("r-list").innerHTML = session.results.map(r=>{ const q = QUESTIONS[r.idx]; const cat=catOf(q); const numInCat = QUESTIONS.filter(x=>x.id.startsWith(cat.key)).findIndex(x=>x.id===q.id)+1; return '<div class="result-row"><span class="ox">'+(r.ok?"○":"×")+'</span><span>'+cat.short+'　問'+numInCat+'　'+q.title+'</span></div>'; }).join("");
+  $("btn-retry-wrong").style.display = session.results.some(r=>!r.ok) ? "" : "none";
+  show("result");
+}
+$("btn-review").addEventListener("click", ()=>{ const w = wrongIndices(); if(w.length) startSession(w); });
+$("btn-random").addEventListener("click", ()=>{
+  const idxs = QUESTIONS.map((_,i)=>i);
+  for(let i=idxs.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [idxs[i],idxs[j]]=[idxs[j],idxs[i]]; }
+  startSession(idxs.slice(0,5));
+});
+$("btn-reset").addEventListener("click", async ()=>{ if(confirm("成績データをリセットします。よろしいですか？")){ progress = {}; await deleteProgress(); renderHome(); } });
+$("btn-next").addEventListener("click", nextQuestion);
+$("btn-quit").addEventListener("click", renderHome);
+$("btn-home2").addEventListener("click", renderHome);
+$("btn-retry-wrong").addEventListener("click", ()=>{ const w = session.results.filter(r=>!r.ok).map(r=>r.idx); if(w.length) startSession(w); else renderHome(); });
+(async function init(){ await loadProgress(); renderHome(); })();
+</script>
+</body>
+</html>

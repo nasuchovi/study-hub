@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宅建テキスト 第1巻｜宅建業法</title>
+<style>
+  :root{
+    --paper:#FCFBF7; --ink:#23272F; --sub:#6B6F78; --line:#DCD8CD;
+    --shu:#1B5E7A; --marker:#9FD8E8; --marker-soft:#DCF0F5;
+    --serif:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:2;}
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px 80px;}
+  header{border-bottom:2px solid var(--ink);padding:22px 0 12px;}
+  .exam-label{font-size:11px;letter-spacing:.22em;color:var(--sub);}
+  h1{font-family:var(--serif);font-size:22px;letter-spacing:.06em;margin-top:2px;}
+  .vol{display:inline-block;font-size:12px;border:1px solid var(--ink);padding:1px 10px;margin-top:8px;letter-spacing:.15em;}
+  .toc{background:#fff;border:1px solid var(--line);padding:14px 18px;margin:20px 0;font-size:13px;}
+  .toc b{font-family:var(--serif);display:block;margin-bottom:4px;letter-spacing:.15em;}
+  h2{font-family:var(--serif);font-size:18px;border-left:5px solid var(--shu);padding:2px 0 2px 12px;margin:44px 0 14px;}
+  h3{font-family:var(--serif);font-size:15.5px;margin:26px 0 8px;color:var(--shu);}
+  p{margin-bottom:14px;text-align:justify;}
+  .box{background:var(--marker-soft);border-left:4px solid var(--marker);padding:10px 14px;margin:14px 0 18px;font-size:13.5px;line-height:1.9;}
+  .box:before{content:"ひっかけ＆改正 ";font-weight:700;color:var(--shu);letter-spacing:.05em;}
+  .point{background:#fff;border:1px solid var(--ink);padding:10px 14px;margin:14px 0 18px;font-size:13.5px;line-height:1.9;}
+  .point:before{content:"数字カード ";font-weight:700;letter-spacing:.05em;background:var(--marker);padding:0 6px;}
+  .quiz{font-size:12px;color:var(--sub);margin:-6px 0 18px;}
+  table{border-collapse:collapse;width:100%;background:#fff;font-size:13px;margin:8px 0 18px;}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;line-height:1.7;}
+  th{background:var(--marker-soft);font-weight:600;white-space:nowrap;}
+  b.kw{color:var(--shu);font-family:var(--serif);}
+  footer{margin-top:48px;border-top:1px dashed var(--line);padding-top:12px;font-size:12px;color:var(--sub);}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="exam-label">宅地建物取引士試験 やさしい読本シリーズ</div>
+  <h1>宅建業法</h1>
+  <span class="vol">第1巻｜経験者の再起動用</span>
+</header>
+
+<div class="toc">
+<b>もくじ</b>
+1. 宅建業法は満点を狙う科目／2. 「宅建業」の定義と免許の要否／3. 免許のしくみと欠格事由／4. 宅地建物取引士／5. 営業保証金と保証協会／6. 媒介契約／7. 重要事項説明（35条）と37条書面／8. 8種制限（自ら売主規制）／9. 報酬・その他の規制・監督処分／10. 攻略の地図
+</div>
+
+<h2>1．宅建業法は満点を狙う科目</h2>
+<p>受験経験があるなら肌でわかっていると思いますが、宅建業法は<b class="kw">50問中20問</b>を占める最大の得点源で、しかも範囲が狭く、過去問の焼き直しが多い。権利関係（民法）が「8割取れれば上出来」の科目なのに対し、業法は<b class="kw">満点〜18点を狙いにいく</b>科目です。合格ライン（例年35点前後）の半分以上をここで作る。だから第1巻は業法、というわけです。</p>
+<p>この巻は、ゼロから説明するというより、<b class="kw">記憶のフックを掛け直す</b>ことを狙います。各テーマで「数字」「ひっかけの定番」「近年の改正」を濃いめに置くので、読みながら『あ、これ忘れてた』を拾っていってください。</p>
+
+<h2>2．「宅建業」の定義と免許の要否</h2>
+<p>すべての出発点。宅建業＝<b class="kw">宅地・建物</b>について、<b class="kw">①売買・交換を自ら行う ②売買・交換・貸借の代理 ③売買・交換・貸借の媒介</b>を、<b class="kw">業として</b>（不特定多数に反復継続して）行うこと。</p>
+<p>表にすると、急所が一目でわかります。</p>
+<table>
+<tr><th></th><th>自ら</th><th>代理</th><th>媒介</th></tr>
+<tr><td>売買</td><td>○</td><td>○</td><td>○</td></tr>
+<tr><td>交換</td><td>○</td><td>○</td><td>○</td></tr>
+<tr><td>貸借</td><td><b class="kw">×</b></td><td>○</td><td>○</td></tr>
+</table>
+<p>右下の<b class="kw">「自ら貸借」だけが宅建業ではない</b>——この1マスが業法最頻出のひっかけです。自分のビルを自分で貸す大家業、サブリース（自ら転貸）は、どれだけ大規模に反復継続しても免許不要。「自ら貸主」の文字を見たら反射的に『免許いらない』と反応できるように。</p>
+<div class="box">「自ら売主」と「自ら貸主」を混同させる肢に注意。自ら売主＝宅建業（しかも8種制限がかかる）、自ら貸主＝宅建業ではない。たった一字違いで結論が真逆。</div>
+<p>もう一つ、<b class="kw">国・地方公共団体</b>には業法が適用されない（信託会社・信託銀行は届出で業者とみなす特例あり）。ただし国などの「代理・媒介」を業として行う民間業者には免許が必要です。</p>
+<p class="quiz">▶ 問題集：宅建業法 問1・問2</p>
+
+<h2>3．免許のしくみと欠格事由</h2>
+<p>免許は2種類。1つの都道府県だけに事務所を置くなら<b class="kw">知事免許</b>、2つ以上の都道府県に事務所を置くなら<b class="kw">大臣免許</b>。事務所の「数」ではなく「またぐ都道府県の数」で決まります（1つの県に10事務所でも知事免許）。有効期間は<b class="kw">5年</b>、更新は期間満了の<b class="kw">90日前から30日前まで</b>に申請。</p>
+<h3>欠格事由 ― 「5年」が基本ライン</h3>
+<p>免許を受けられない事由はたくさんありますが、多くが<b class="kw">5年</b>で揃います。〈一定の罪で罰金・禁錮以上の刑→執行終了等から5年〉〈免許の不正取得・業務停止処分違反・情状が特に重い等で免許取消し→取消しから5年〉。ここで覚えるべき例外が2つ。<b class="kw">破産者は復権を得れば直ちにOK</b>（5年待たない）、そして<b class="kw">禁錮以上は罪名を問わず</b>すべてアウト（過失でも）なのに対し、<b class="kw">罰金は一定の罪（宅建業法違反・傷害・暴行・背任など）に限ってアウト</b>。「罰金でも引っかかる罪は限定列挙」がよく問われます。</p>
+<p class="point">免許＝5年更新（更新は90日前〜30日前）／欠格は5年が基本／破産者は復権で即／禁錮以上は全部・罰金は限定の罪のみ</p>
+<p class="quiz">▶ 問題集：宅建業法 問4</p>
+
+<h2>4．宅地建物取引士</h2>
+<p>業者（会社）とは別に、<b class="kw">宅建士</b>（個人）の制度があります。3つのステップで一人前になります。<b class="kw">①試験合格</b>（一生有効）→<b class="kw">②登録</b>（合格した都道府県知事に。<b class="kw">2年以上の実務経験</b>または登録実務講習が必要）→<b class="kw">③取引士証の交付</b>（<b class="kw">5年</b>有効、更新あり。交付申請前6月以内の法定講習。ただし合格後1年以内の交付なら講習免除）。</p>
+<p>宅建士にしかできない<b class="kw">独占業務が3つ</b>。〈重要事項の説明〉〈35条書面（重説書）への記名〉〈37条書面（契約書）への記名〉。逆に言えば、これ以外（広告、契約交渉など）は宅建士でなくてもできます。</p>
+<div class="box">「専任の宅建士でなければ重説できない」→×。重説・記名は宅建士なら誰でもよく、専任である必要はない。「専任」が要求されるのは事務所等への設置義務の場面（5人に1人）だけ。「重説のとき取引士証の提示は請求がなければ不要」→×、請求がなくても必須。</div>
+<p class="quiz">▶ 問題集：宅建業法 問5</p>
+
+<h2>5．営業保証金と保証協会</h2>
+<p>取引でトラブった相手が泣き寝入りしないよう、業者にお金を積ませる制度。2つのルートがあり、対比で覚えます。</p>
+<table>
+<tr><th></th><th>営業保証金</th><th>保証協会（弁済業務保証金分担金）</th></tr>
+<tr><td>金額</td><td>本店<b class="kw">1,000万</b>・支店各<b class="kw">500万</b></td><td>本店<b class="kw">60万</b>・支店各<b class="kw">30万</b></td></tr>
+<tr><td>納付先</td><td>本店最寄りの<b class="kw">供託所</b>に供託</td><td><b class="kw">保証協会</b>に金銭で納付</td></tr>
+<tr><td>方法</td><td>金銭 or 有価証券</td><td><b class="kw">金銭のみ</b></td></tr>
+<tr><td>開業</td><td>供託＋届出後</td><td>加入＝協会の社員になること</td></tr>
+</table>
+<p>桁が全然違うので、保証協会に入るほうが圧倒的に負担が軽い（多くの中小業者が選ぶ）。<b class="kw">還付</b>（被害者がお金を取り戻す）を受けられるのは「宅建業の取引から生じた債権を持つ者」で、相手方が<b class="kw">宅建業者の場合や、従業員の給与</b>は還付の対象外、というのが頻出のひっかけです。</p>
+<p class="quiz">▶ 問題集：宅建業法 問6</p>
+
+<h2>6．媒介契約</h2>
+<p>物件売却を業者に頼むときの契約。3類型を<b class="kw">縛りの強さの順</b>で並べて、数字を貼り付けます。</p>
+<table>
+<tr><th></th><th>一般</th><th>専任</th><th>専属専任</th></tr>
+<tr><td>他業者へ重ねて依頼</td><td>○</td><td>×</td><td>×</td></tr>
+<tr><td>自己発見取引（自分で買主を見つける）</td><td>○</td><td>○</td><td><b class="kw">×</b></td></tr>
+<tr><td>有効期間</td><td>規制なし</td><td colspan="2"><b class="kw">3月</b>（超える定めは3月に短縮）</td></tr>
+<tr><td>指定流通機構への登録</td><td>任意</td><td><b class="kw">7日以内</b></td><td><b class="kw">5日以内</b></td></tr>
+<tr><td>業務処理状況の報告</td><td>規制なし</td><td><b class="kw">2週に1回</b>以上</td><td><b class="kw">1週に1回</b>以上</td></tr>
+</table>
+<p>専属専任が最も縛りが強く、その分だけ登録も報告も厳しい、と理屈で並べれば暗記が減ります。登録日数（7日・5日）は<b class="kw">休業日を除いて</b>カウントする点も要チェック。</p>
+<p class="quiz">▶ 問題集：宅建業法 問7</p>
+
+<h2>7．重要事項説明（35条）と37条書面</h2>
+<p>この2つの書面の<b class="kw">タイミングの違い</b>が骨格です。<b class="kw">35条（重要事項説明）は契約が成立する「前」</b>、買主が「この物件、買って大丈夫か」を判断するための情報提供。<b class="kw">37条書面（契約書）は契約成立「後」遅滞なく</b>、合意内容を証拠として残すもの。</p>
+<table>
+<tr><th></th><th>35条（重説）</th><th>37条書面</th></tr>
+<tr><td>時期</td><td>契約成立<b class="kw">前</b></td><td>契約成立<b class="kw">後</b>遅滞なく</td></tr>
+<tr><td>説明</td><td>宅建士が<b class="kw">口頭で説明</b></td><td>交付のみ（説明義務なし）</td></tr>
+<tr><td>宅建士の記名</td><td>必要</td><td>必要</td></tr>
+<tr><td>取引士証の提示</td><td>必要（請求なくても）</td><td>—</td></tr>
+<tr><td>交付の相手</td><td>買主・借主等</td><td>両当事者</td></tr>
+</table>
+<p>近年の大きな改正として、<b class="kw">IT重説</b>（テレビ会議等での重要事項説明）が売買・貸借とも認められ、35条書面・37条書面とも<b class="kw">電磁的方法による交付</b>（相手方の承諾があれば書面でなくデータでOK、押印も不要に）が可能になりました。「書面でなければ無効」という古い肢は改正で誤りになっています。</p>
+<div class="box">「相手方が宅建業者なら35条の説明を省略できる」→○（書面交付は必要、口頭説明は省略可）。これは正しい。一方「37条書面にも説明義務がある」→×（37条は交付のみ）。35条＝説明あり・37条＝交付のみ、の対比が命。</div>
+<p class="quiz">▶ 問題集：宅建業法 問8</p>
+
+<h2>8．8種制限（自ら売主規制）</h2>
+<p>業者が<b class="kw">自ら売主</b>、買主が<b class="kw">宅建業者でない</b>ときだけ働く、買主保護の8つの特別ルール。プロ対素人の取引だけ規制する、という発想です（業者間取引には適用なし）。代表的なものを挙げます。</p>
+<p><b class="kw">クーリング・オフ</b>：事務所等以外の場所で申込みをした素人の買主は、原則契約を解除できる。できなくなるのは〈①事務所等で申込み〉〈②書面で告げられた日から<b class="kw">8日</b>経過〉〈③引渡し＋代金全額支払い〉のいずれか。解除は<b class="kw">書面で・発信主義</b>（出した時点で成立）。</p>
+<p><b class="kw">手付の額の制限</b>：代金の<b class="kw">2割</b>を超える手付を受領できない。<b class="kw">手付金等の保全措置</b>：未完成物件は代金の5%超または1,000万円超、完成物件は10%超または1,000万円超を受け取るなら保全が必要。<b class="kw">損害賠償額の予定</b>：代金の2割を超えて定められない。</p>
+<p class="point">8種制限＝〈業者が自ら売主×買主が素人〉のときだけ／手付2割・賠償予定2割／クーリングオフは書面告知から8日・発信主義／保全は未完成5%・完成10%（共に超1,000万）</p>
+<p class="quiz">▶ 問題集：宅建業法 問9</p>
+
+<h2>9．報酬・その他の規制・監督処分</h2>
+<p><b class="kw">報酬</b>の計算は、取引価額を<b class="kw">税抜き</b>に直してから速算式。〈200万以下＝5%／200万超400万以下＝4%＋2万／400万超＝<b class="kw">3%＋6万</b>〉（別途消費税）。これは媒介の一方からの限度額で、代理は倍額が目安。<b class="kw">居住用建物の貸借</b>の媒介は、依頼者の承諾がなければ一方から<b class="kw">借賃0.5月分</b>が限度。広告料は<b class="kw">依頼があった分だけ</b>別途請求可。</p>
+<p><b class="kw">監督処分</b>は3段階〈指示処分→業務停止（1年以内）→免許取消し〉。業者への処分と宅建士への処分（指示・事務禁止・登録消除）は別系統です。<b class="kw">罰則</b>では、無免許営業や不正の手段による免許取得などが最も重い（3年以下の懲役等）。</p>
+<p class="quiz">▶ 問題集：宅建業法 問10</p>
+
+<h2>10．攻略の地図</h2>
+<p>業法は「狭く・深く・確実に」。出るところは毎年ほぼ決まっていて、この第1巻の10テーマがそのまま頻出順です。受験経験があるあなたへの具体的な助言は3つ。</p>
+<p>ひとつ、<b class="kw">数字と日数を表で再記憶</b>。業法の失点はほぼ「数字のうろ覚え」から来ます。5年・90日・3月・7日/5日・8日・2割・5%/10%——アプリの問題で間違えたら、この巻の表に戻る。</p>
+<p>ふたつ、<b class="kw">「自ら売主／自ら貸主」「35条／37条」「専任／専属専任」</b>の3大ペアを、瞬時に判別できるまで。ここを取りこぼさなければ業法で大崩れしません。</p>
+<p>みっつ、<b class="kw">改正点を最新化</b>。前回受験から時間が経っているなら、IT重説・電磁的交付・押印廃止あたりは要アップデート。古い知識のまま「書面必須」と答えると失点します。</p>
+<p>次巻は権利関係（民法・借地借家法・区分所有法・不動産登記法）。業法と違って満点は狙わず、頻出分野（意思表示・代理・借地借家・相続あたり）で確実に取る戦略科目です。経験者なら、忘れている民法の勘を戻すのにちょうどいい復習になります。</p>
+
+<footer>やさしい読本シリーズ（宅建）第1巻｜択一トレーニングアプリ（宅建業法 基礎10問）と対応。民法・宅建業法の改正、IT重説・電磁的交付に対応。試験範囲の法令基準日（例年4月1日時点）に注意し、最新の改正を確認してください。</footer>
+</div>
+</body>
+</html>

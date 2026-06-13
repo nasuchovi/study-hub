@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学習ポータル｜資格対策ハブ</title>
+<style>
+  :root{
+    --paper:#FCFBF7; --ink:#23272F; --sub:#6B6F78; --line:#DCD8CD;
+    --sharo:#BC342C; --takken:#1B5E7A;
+    --marker-soft:#FFF3B8;
+    --serif:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.8;}
+  .wrap{max-width:620px;margin:0 auto;padding:0 16px 80px;}
+  header{border-bottom:2px solid var(--ink);padding:22px 0 14px;margin-bottom:6px;}
+  .exam-label{font-size:11px;letter-spacing:.22em;color:var(--sub);}
+  h1{font-family:var(--serif);font-size:22px;letter-spacing:.06em;margin-top:2px;}
+  .updated{font-size:12px;color:var(--sub);margin-top:8px;}
+  .tabs{display:flex;gap:8px;margin:22px 0 8px;}
+  .tab{flex:1;text-align:center;padding:10px;border:1px solid var(--ink);background:#fff;font-size:14px;cursor:pointer;font-family:var(--sans);}
+  .tab.active{color:#fff;}
+  .tab.sharo.active{background:var(--sharo);border-color:var(--sharo);}
+  .tab.takken.active{background:var(--takken);border-color:var(--takken);}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  h2{font-family:var(--serif);font-size:16px;margin:26px 0 10px;padding-bottom:4px;border-bottom:1px solid var(--line);}
+  .item{display:block;background:#fff;border:1px solid var(--line);padding:13px 15px;margin-bottom:10px;text-decoration:none;color:var(--ink);position:relative;cursor:pointer;}
+  .item:active{background:var(--marker-soft);}
+  .item .t{font-family:var(--serif);font-size:15px;font-weight:700;}
+  .item .d{font-size:12px;color:var(--sub);margin-top:2px;}
+  .item .badge{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:11px;padding:2px 8px;border-radius:2px;letter-spacing:.05em;}
+  .badge.app{background:var(--marker-soft);color:#7a5d00;}
+  .badge.text{border:1px solid var(--line);color:var(--sub);}
+  .item.locked{opacity:.5;cursor:default;}
+  .item.locked:active{background:#fff;}
+  .badge.soon{background:#eee;color:#999;}
+  .howto{background:#fff;border:1px solid var(--ink);padding:14px 16px;margin:20px 0;font-size:13px;line-height:1.85;}
+  .howto b{font-family:var(--serif);}
+  .note{font-size:12px;color:var(--sub);border-top:1px dashed var(--line);margin-top:28px;padding-top:14px;line-height:1.8;}
+  .pastebox{margin-top:8px;}
+  .pastebox input{width:100%;border:1px solid var(--line);padding:9px;font-size:13px;font-family:var(--sans);}
+  .pastebox button{margin-top:6px;width:100%;padding:9px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-size:13px;cursor:pointer;}
+  .saved-link{display:flex;gap:8px;align-items:center;margin-top:6px;font-size:12px;}
+  .saved-link a{color:var(--takken);word-break:break-all;}
+  .saved-link button{background:none;border:none;color:var(--sub);text-decoration:underline;cursor:pointer;font-size:11px;flex-shrink:0;}
+  .care{background:var(--marker-soft);border-left:4px solid #FFE76A;padding:11px 14px;margin:18px 0;font-size:12.5px;color:#5a4a00;line-height:1.85;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="exam-label">資格対策 学習ポータル</div>
+  <h1>学習ハブ</h1>
+  <div class="updated">最終更新：2026年6月13日｜宅建・権利関係10問の追加時点</div>
+</header>
+
+<div class="care">短期決戦の宅建（2026年10月）と本丸の社労士（2027年8月）の教材をここに集約しています。無理のないペースで。今日できなくても大丈夫、教材は逃げません。</div>
+
+<div class="tabs">
+  <div class="tab takken active" data-panel="takken">宅建（先攻）</div>
+  <div class="tab sharo" data-panel="sharo">社労士（本命）</div>
+</div>
+
+<!-- 宅建パネル -->
+<div class="panel active" id="panel-takken">
+  <h2>択一トレーニング（アプリ）</h2>
+  <div class="item" data-key="takken_quiz">
+    <span class="badge app">アプリ</span>
+    <div class="t">宅建 択一トレーニング</div>
+    <div class="d">宅建業法18問＋権利関係10問。全肢解説・進捗保存つき</div>
+    <div class="pastebox" data-for="takken_quiz"></div>
+  </div>
+
+  <h2>テキスト（読本）</h2>
+  <div class="item" data-key="takken_text1">
+    <span class="badge text">テキスト</span>
+    <div class="t">第1巻　宅建業法</div>
+    <div class="d">経験者の再起動用。比較表＋改正点を凝縮</div>
+    <div class="pastebox" data-for="takken_text1"></div>
+  </div>
+  <div class="item locked">
+    <span class="badge soon">制作予定</span>
+    <div class="t">第2巻　権利関係</div>
+    <div class="d">民法・借地借家・区分所有・不動産登記</div>
+  </div>
+  <div class="item locked">
+    <span class="badge soon">制作予定</span>
+    <div class="t">第3巻　法令上の制限・税その他</div>
+    <div class="d">都市計画法・建築基準法・国土法・農地法ほか</div>
+  </div>
+</div>
+
+<!-- 社労士パネル -->
+<div class="panel" id="panel-sharo">
+  <h2>択一トレーニング（アプリ）</h2>
+  <div class="item" data-key="sharo_quiz">
+    <span class="badge app">アプリ</span>
+    <div class="t">社労士 全科目演習</div>
+    <div class="d">全10科目110問＋第57回本試験20問。全肢解説・進捗保存</div>
+    <div class="pastebox" data-for="sharo_quiz"></div>
+  </div>
+  <div class="item" data-key="sharo_oudan">
+    <span class="badge app">資料</span>
+    <div class="t">横断整理表（全12表）</div>
+    <div class="d">待期・遺族の範囲・年齢の階段など科目横断の比較</div>
+    <div class="pastebox" data-for="sharo_oudan"></div>
+  </div>
+
+  <h2>テキスト（やさしい読本）</h2>
+  <div class="item" data-key="sharo_text1">
+    <span class="badge text">テキスト</span>
+    <div class="t">第1巻　労働基準法</div>
+    <div class="pastebox" data-for="sharo_text1"></div>
+  </div>
+  <div class="item" data-key="sharo_text2">
+    <span class="badge text">テキスト</span>
+    <div class="t">第2巻　労働安全衛生法</div>
+    <div class="pastebox" data-for="sharo_text2"></div>
+  </div>
+  <div class="item" data-key="sharo_text3">
+    <span class="badge text">テキスト</span>
+    <div class="t">第3巻　労災保険法</div>
+    <div class="pastebox" data-for="sharo_text3"></div>
+  </div>
+  <div class="item" data-key="sharo_text4">
+    <span class="badge text">テキスト</span>
+    <div class="t">第4巻　雇用保険法</div>
+    <div class="pastebox" data-for="sharo_text4"></div>
+  </div>
+  <div class="item" data-key="sharo_text5">
+    <span class="badge text">テキスト</span>
+    <div class="t">第5巻　労働保険徴収法（労働科目・完）</div>
+    <div class="pastebox" data-for="sharo_text5"></div>
+  </div>
+  <div class="item locked">
+    <span class="badge soon">制作予定</span>
+    <div class="t">第6巻〜　健保・国年・厚年・一般常識</div>
+    <div class="d">社会保険科目編。順次追加</div>
+  </div>
+</div>
+
+<div class="howto">
+<b>このポータルの使い方</b><br>
+各教材ファイルは生成のたびにリンクが変わります。各項目の下の入力欄に、チャットで受け取った教材のリンク（https://claude.ai/... 等）を貼って「保存」を押すと、このポータル内にリンクが記憶され、次からはここをタップするだけで開けます。保存先はこの端末のブラウザ内（このポータルをホーム画面に追加した場合に有効）。新しい教材が増えたら、私が更新版ポータルを発行します。
+</div>
+
+<p class="note">
+※ このポータル自体も、新教材の追加時に私が再発行します。常に最新版をホーム画面に置いておくのがおすすめです。<br>
+※ リンクの保存はこの端末のブラウザ内に留まり、外部には送信されません。<br>
+※ 各アプリの学習進捗は、それぞれのアプリ側に別途保存されます（ポータルとは独立）。
+</p>
+</div>
+
+<script>
+const STORE = "study-portal-links-v1";
+let links = {};
+function load(){
+  try{ const v = localStorage.getItem(STORE); if(v) links = JSON.parse(v); }catch(e){ links = {}; }
+}
+function save(){
+  try{ localStorage.setItem(STORE, JSON.stringify(links)); }catch(e){}
+}
+function renderPasteboxes(){
+  document.querySelectorAll(".pastebox").forEach(box=>{
+    const key = box.dataset.for;
+    box.innerHTML = "";
+    if(links[key]){
+      const wrap = document.createElement("div");
+      wrap.className = "saved-link";
+      const a = document.createElement("a");
+      a.href = links[key]; a.target = "_blank"; a.rel = "noopener";
+      a.textContent = "▶ 開く";
+      const del = document.createElement("button");
+      del.textContent = "リンク変更";
+      del.addEventListener("click", (e)=>{ e.stopPropagation(); delete links[key]; save(); renderPasteboxes(); });
+      wrap.appendChild(a); wrap.appendChild(del);
+      box.appendChild(wrap);
+      box.closest(".item").onclick = (e)=>{ if(e.target.tagName!=="BUTTON"){ window.open(links[key], "_blank"); } };
+    }else{
+      const input = document.createElement("input");
+      input.placeholder = "教材リンクを貼り付け";
+      input.addEventListener("click", e=>e.stopPropagation());
+      const btn = document.createElement("button");
+      btn.textContent = "リンクを保存";
+      btn.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        const v = input.value.trim();
+        if(v){ links[key] = v; save(); renderPasteboxes(); }
+      });
+      box.appendChild(input); box.appendChild(btn);
+      box.closest(".item").onclick = null;
+    }
+  });
+}
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById("panel-"+tab.dataset.panel).classList.add("active");
+  });
+});
+load();
+renderPasteboxes();
+</script>
+</body>
+</html>

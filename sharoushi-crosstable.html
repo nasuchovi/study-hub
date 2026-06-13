@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社労士 横断整理表</title>
+<style>
+  :root{
+    --paper:#FCFBF7; --ink:#23272F; --sub:#6B6F78; --line:#DCD8CD;
+    --shu:#BC342C; --marker:#FFE76A; --marker-soft:#FFF3B8;
+    --serif:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;
+    --sans:"Hiragino Kaku Gothic ProN","Yu Gothic",-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.8;}
+  .wrap{max-width:680px;margin:0 auto;padding:0 14px 60px;}
+  header{border-bottom:2px solid var(--ink);padding:20px 0 12px;margin-bottom:8px;}
+  .exam-label{font-size:11px;letter-spacing:.22em;color:var(--sub);}
+  h1{font-family:var(--serif);font-size:21px;letter-spacing:.06em;margin-top:2px;}
+  .lede{font-size:12.5px;color:var(--sub);margin:10px 0 22px;}
+  h2{
+    font-family:var(--serif);font-size:16px;
+    border-left:5px solid var(--shu);
+    padding:2px 0 2px 10px;
+    margin:34px 0 4px;
+  }
+  .why{font-size:12px;color:var(--sub);margin:0 0 10px 15px;}
+  table{border-collapse:collapse;width:100%;background:#fff;font-size:12.5px;margin-bottom:6px;}
+  th,td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top;line-height:1.6;}
+  th{background:var(--marker-soft);font-weight:600;white-space:nowrap;}
+  td b{color:var(--shu);font-family:var(--serif);}
+  .memo{
+    background:var(--marker-soft);border-left:4px solid var(--marker);
+    padding:9px 12px;font-size:12.5px;margin:8px 0 0;
+  }
+  .memo:before{content:"覚え方 ";font-weight:700;letter-spacing:.1em;}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .check li{margin-left:1.4em;font-size:13px;}
+  footer{margin-top:40px;border-top:1px dashed var(--line);padding-top:12px;font-size:11.5px;color:var(--sub);}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="exam-label">社会保険労務士試験対策｜直前期の最強武器</div>
+  <h1>横断整理表</h1>
+</header>
+<p class="lede">社労士試験の失点の多くは「科目間で似た数字・似た制度の混同」から生まれます。この表は、択一トレーニング全110問のポイント解説に登場した横断論点を一覧化したものです。1日1表、声に出して読むのが効きます。</p>
+
+<h2>整理1　待期期間の比較</h2>
+<p class="why">3科目で数字も数え方も違う、最頻出の横断論点。</p>
+<table>
+<tr><th>制度</th><th>待期</th><th>数え方</th></tr>
+<tr><td>労災｜休業（補償）等給付</td><td><b>3日</b></td><td><b>通算</b>でよい（業務災害の3日間は事業主が労基法の休業補償）</td></tr>
+<tr><td>健保｜傷病手当金</td><td><b>3日</b></td><td><b>連続</b>が必要（土日・有休も算入）</td></tr>
+<tr><td>雇用｜基本手当</td><td><b>7日</b></td><td><b>通算</b>でよい（全受給資格者共通）</td></tr>
+</table>
+<p class="memo">「労災は通算・健保は連続・雇用は7日」。連続が要るのは健保だけ。</p>
+
+<h2>整理2　休業中の所得補償の比較</h2>
+<table class="scroll">
+<tr><th>給付</th><th>率・額</th><th>期間など</th></tr>
+<tr><td>労災｜休業（補償）等給付</td><td>給付基礎日額の<b>60％</b>＋特別支給金<b>20％</b></td><td>4日目から・治ゆ等まで</td></tr>
+<tr><td>健保｜傷病手当金</td><td>標準報酬月額12か月平均÷30の<b>3分の2</b></td><td><b>通算1年6か月</b></td></tr>
+<tr><td>健保｜出産手当金</td><td>同上（3分の2）</td><td>産前<b>42日</b>（多胎98日）・産後<b>56日</b></td></tr>
+<tr><td>雇用｜基本手当</td><td>賃金日額の<b>50〜80％</b>（60〜64歳45〜80％）</td><td>所定給付日数90〜360日</td></tr>
+<tr><td>労基｜休業手当</td><td>平均賃金の<b>60％以上</b></td><td>使用者の責に帰すべき事由による休業</td></tr>
+<tr><td>労基｜休業補償</td><td>平均賃金の<b>60％</b></td><td>業務上傷病（労災給付があれば免責）</td></tr>
+</table>
+<p class="memo">「手当＝責に帰すべき事由／補償＝業務上」。労災は60＋20で実質80。健保系は3分の2。</p>
+
+<h2>整理3　人数要件の階段</h2>
+<table>
+<tr><th>人数</th><th>制度</th></tr>
+<tr><td><b>1人</b></td><td>労災・雇用の適用／健保・厚年の強制適用（法人）</td></tr>
+<tr><td><b>5人</b></td><td>健保・厚年の強制適用（個人経営・法定業種）</td></tr>
+<tr><td><b>10人</b></td><td>就業規則の作成・届出義務（労基89条）</td></tr>
+<tr><td><b>50人</b></td><td>衛生管理者・産業医・衛生委員会（全業種）／安全管理者（特定業種）／ストレスチェック義務／健保・厚年の短時間労働者適用拡大（特定適用事業所51人以上）※規模要件は撤廃方向の改正進行中</td></tr>
+<tr><td><b>100人</b></td><td>総括安全衛生管理者（林業・鉱業・建設・運送・清掃）／障害者雇用納付金（100人超）／事務組合委託（卸売・サービスは100人以下）</td></tr>
+<tr><td><b>300人</b></td><td>総括安全衛生管理者（製造業等）／事務組合委託（その他の業種300人以下）</td></tr>
+<tr><td><b>700人／3,000人</b></td><td>健康保険組合の設立（単一700人・共同3,000人）</td></tr>
+<tr><td><b>1,000人</b></td><td>総括安全衛生管理者（その他の業種）／専属産業医（有害業務は500人）</td></tr>
+</table>
+
+<h2>整理4　期限・日数の整理</h2>
+<table>
+<tr><th>日数</th><th>手続など</th></tr>
+<tr><td><b>10日</b></td><td>労働保険の保険関係成立届</td></tr>
+<tr><td><b>14日</b></td><td>安衛法の各管理者等の選任期限／労基15条の帰郷旅費（契約解除から14日以内の帰郷）</td></tr>
+<tr><td><b>20日</b></td><td>健保の任意継続被保険者の申出（資格喪失日から）</td></tr>
+<tr><td><b>30日</b></td><td>解雇予告（労基20条）／増加概算保険料の申告納付</td></tr>
+<tr><td><b>40日</b></td><td>年度更新（6月1日から40日以内＝7月10日）</td></tr>
+<tr><td><b>50日</b></td><td>保険関係成立時の概算保険料の申告納付</td></tr>
+</table>
+<p class="memo">徴収法は「10日（届出）→50日（成立時概算）→40日（年度更新）→30日（増加概算）」とストーリーで。</p>
+
+<h2>整理5　労使協定・労働協約・意見聴取・同意</h2>
+<table>
+<tr><th>場面</th><th>必要なもの</th></tr>
+<tr><td>就業規則の作成・変更</td><td>過半数代表の<b>意見聴取</b>（同意は不要）＋届出＋周知</td></tr>
+<tr><td>36協定・賃金控除協定など</td><td><b>労使協定</b>（書面。36協定は届出が効力要件）</td></tr>
+<tr><td>賃金の現物支給（通貨払いの例外）</td><td><b>労働協約</b>（労使協定では不可）</td></tr>
+<tr><td>労働協約の効力発生</td><td><b>書面＋署名又は記名押印</b>（有効期間上限3年）</td></tr>
+<tr><td>健保・厚年の任意適用申請／健保組合設立</td><td>被保険者となるべき者等の<b>2分の1以上の同意</b></td></tr>
+<tr><td>労働保険の任意加入</td><td>労災＝同意<b>不要</b>（過半数希望で加入義務）／雇用＝<b>2分の1以上の同意</b>（過半数希望で加入義務）</td></tr>
+</table>
+
+<h2>整理6　遺族の範囲の比較</h2>
+<table>
+<tr><th>制度</th><th>範囲</th><th>特徴</th></tr>
+<tr><td>労災｜遺族（補償）等年金</td><td>配偶者・子・父母・孫・祖父母・<b>兄弟姉妹</b></td><td>最も広い。<b>転給あり</b>。妻のみ無条件</td></tr>
+<tr><td>国年｜遺族基礎年金</td><td><b>子のある配偶者・子</b>のみ</td><td>最も狭い（子育て支援の性格）</td></tr>
+<tr><td>厚年｜遺族厚生年金</td><td>配偶者・子・父母・孫・祖父母（兄弟姉妹<b>×</b>）</td><td>転給なし。夫・父母・祖父母は55歳以上（支給60歳〜）。男女差は見直し改正進行中</td></tr>
+</table>
+<p class="memo">広い順に「労災＞厚年＞基礎」。兄弟姉妹まで救うのは労災だけ、転給があるのも労災だけ。</p>
+
+<h2>整理7　年金2法の対比（基礎 vs 厚生）</h2>
+<table>
+<tr><th>項目</th><th>国民年金（基礎）</th><th>厚生年金</th></tr>
+<tr><td>障害等級</td><td><b>1・2級</b>のみ</td><td><b>1・2・3級＋障害手当金</b></td></tr>
+<tr><td>1級の額</td><td colspan="2">いずれも2級の<b>1.25倍</b>（共通）</td></tr>
+<tr><td>家族の加算</td><td><b>子の加算</b></td><td>1・2級に<b>配偶者加給</b>／老齢に加給年金（20年以上）</td></tr>
+<tr><td>繰上げ</td><td colspan="2">60歳〜・1月<b>0.4％</b>減・基礎と厚生は<b>同時</b></td></tr>
+<tr><td>繰下げ</td><td colspan="2">66〜75歳・1月<b>0.7％</b>増・基礎と厚生は<b>別々に可</b></td></tr>
+<tr><td>受給資格期間</td><td colspan="2">10年（老齢厚生は＋被保険者期間1か月以上、特別支給は1年以上）</td></tr>
+</table>
+
+<h2>整理8　健保 vs 厚年の対比</h2>
+<table>
+<tr><th>項目</th><th>健康保険</th><th>厚生年金</th></tr>
+<tr><td>標準報酬月額の等級</td><td><b>第1〜50級</b></td><td><b>第1〜32級</b>（上限引上げの改正進行中）</td></tr>
+<tr><td>標準賞与額の上限</td><td><b>年度累計573万円</b></td><td><b>1回（1か月）150万円</b></td></tr>
+<tr><td>被保険者の年齢上限</td><td><b>75歳</b>（後期高齢者医療へ）</td><td><b>70歳</b></td></tr>
+<tr><td>産休・育休中の保険料</td><td colspan="2">いずれも労使とも<b>免除</b>（厚年は納付済扱いで年金額が減らない）</td></tr>
+</table>
+
+<h2>整理9　年齢の階段</h2>
+<table>
+<tr><th>年齢</th><th>意味</th></tr>
+<tr><td><b>15歳年度末</b></td><td>労基：児童の使用禁止はここまで（最低年齢）</td></tr>
+<tr><td><b>18歳</b></td><td>労基：年少者の保護（深夜業禁止等）はここまで／遺族年金の「子」＝18歳年度末まで（障害1・2級は20歳未満）</td></tr>
+<tr><td><b>20歳</b></td><td>国年第1号・第3号の下限／20歳前傷病の障害基礎年金</td></tr>
+<tr><td><b>40歳</b></td><td>介護保険第2号被保険者の下限</td></tr>
+<tr><td><b>60歳</b></td><td>定年の下限（高年法）／年金繰上げの下限／国年第1号の上限</td></tr>
+<tr><td><b>65歳</b></td><td>雇用確保措置の義務はここまで／高年齢被保険者（雇用保険）／介護保険第1号／年金の本来支給開始</td></tr>
+<tr><td><b>70歳</b></td><td>就業確保措置（努力義務）はここまで／厚年被保険者の上限</td></tr>
+<tr><td><b>75歳</b></td><td>健保の上限→後期高齢者医療へ／年金繰下げの上限</td></tr>
+</table>
+
+<h2>整理10　時効の整理</h2>
+<table>
+<tr><th>期間</th><th>対象</th></tr>
+<tr><td><b>2年</b></td><td>労基：災害補償・帰郷旅費等（賃金以外）／労災：療養・休業・葬祭料・介護等の給付／雇用：失業等給付／徴収・健保・国年・厚年：保険料徴収権／健保：保険給付</td></tr>
+<tr><td><b>5年</b></td><td>労基：賃金請求権（当分の間<b>3年</b>）・退職手当／労災：障害・遺族の給付／国年・厚年：年金給付を受ける権利</td></tr>
+<tr><td><b>10年</b></td><td>国年：免除・猶予期間の保険料の<b>追納</b>（時効ではないがセットで）</td></tr>
+</table>
+<p class="memo">原則2年、重いもの（年金・障害・遺族・退職手当）は5年、と大づかみしてから例外を貼る。</p>
+
+<h2>整理11　国年の免除 vs 厚年の免除</h2>
+<table>
+<tr><th></th><th>国年（申請・法定免除）</th><th>厚年（産休・育休免除）</th></tr>
+<tr><td>受給資格期間</td><td>算入される</td><td>算入される</td></tr>
+<tr><td>年金額への反映</td><td>一部のみ（全額免除1/2・3/4免除5/8・半額6/8・1/4免除7/8）</td><td><b>全額反映（納付済扱い）</b></td></tr>
+<tr><td>学生特例・納付猶予</td><td>資格期間のみ算入・額には反映なし（追納10年）</td><td>—</td></tr>
+</table>
+
+<h2>整理12　直前期チェックリスト（毎年変わる数字）</h2>
+<p class="why">この表の項目は本資料・問題集とも意図的に固定値を載せていません。受験年度の5〜7月に最新値で総仕上げすること。</p>
+<ul class="check">
+<li>年金額（老齢基礎の満額・改定率）／在職老齢年金の支給停止調整額</li>
+<li>雇用保険率・健保の保険料率（協会けんぽ都道府県別）／労災保険率</li>
+<li>基本手当の賃金日額上限・下限／高年齢雇用継続給付の支給率</li>
+<li>地域別最低賃金／障害者の法定雇用率</li>
+<li>標準報酬月額の上限等級（健保・厚年とも改正動向に注意）</li>
+<li>出産育児一時金の額／高額療養費の自己負担限度額</li>
+<li>短時間労働者の適用拡大の企業規模要件（撤廃スケジュール）</li>
+<li>白書・統計（労働経済白書・厚生労働白書・就労条件総合調査等の最新数値）</li>
+</ul>
+
+<footer>択一トレーニング（全110問）と対応。問題演習で間違えた論点をこの表に戻って確認する、の往復が最も効率的な使い方です。</footer>
+</div>
+</body>
+</html>
