@@ -1,0 +1,14 @@
+<!-- @dsCard group="Components" name="年代記の一行 / GraveEntry" subtitle="過去帳に積まれる歴代の死。番号＋一文" width="400" height="240" -->
+<style>
+  :root{--soot:#14100c;--paper:#221b13;--dim:#8a7f6c;--line:#3a3126;--gold:#bd9448;--blood:#a63d2e}
+  html,body{margin:0;height:100%}
+  .card{height:100%;display:flex;flex-direction:column;justify-content:center;gap:9px;background:var(--soot);padding:18px;box-sizing:border-box}
+  .grave-entry{background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:11px 13px;font:13.5px/1.9 "Shippori Mincho",serif;color:#d9cfba}
+  .grave-entry .no{color:var(--dim);font-size:11px;letter-spacing:.15em}
+  .cause{color:var(--blood)}.rare{color:var(--gold)}
+</style>
+<div class="card">
+  <div class="grave-entry"><span class="no">其の一</span><br>百姓の与作、畑の傍らで老いて逝く。<span class="rare">畳ならぬ土の上、稀な大往生。</span></div>
+  <div class="grave-entry"><span class="no">其の二</span><br>賭場の勝吉、路地裏に転がる。<span class="cause">いかさまの疑いに、拳の雨。</span></div>
+  <div class="grave-entry"><span class="no">其の三</span><br>無宿の三郎、廃坑の底に消える。<span class="cause">落盤。骨も名も、掘り返されず。</span></div>
+</div>

@@ -1,0 +1,20 @@
+<!-- @dsCard group="Components" name="チップ / Chip" subtitle="状態・連れ・タグの小片。既定/on(金)/mate(縁者)/tag" width="360" height="180" -->
+<style>
+  :root{--soot:#14100c;--dim:#8a7f6c;--gold:#bd9448;--line:#3a3126}
+  html,body{margin:0;height:100%}
+  .card{height:100%;display:flex;align-items:center;justify-content:center;background:var(--soot)}
+  .row{display:flex;gap:5px;flex-wrap:wrap;max-width:300px}
+  .chip{font:11px/1.9 "Shippori Mincho",serif;letter-spacing:.08em;border:1px solid var(--line);color:var(--dim);padding:0 7px;border-radius:2px}
+  .chip.on{color:var(--gold);border-color:#5a4a2a}
+  .chip.mate{color:#9db0a0;border-color:#3a4a3e}
+  .chip.tag{color:#a89a80;border-color:#463c2e}
+</style>
+<div class="card">
+  <div class="row">
+    <span class="chip">飢え</span>
+    <span class="chip on">賭博の才</span>
+    <span class="chip mate">連れ・おぬい</span>
+    <span class="chip tag">廃坑の刻印</span>
+    <span class="chip">病</span>
+  </div>
+</div>

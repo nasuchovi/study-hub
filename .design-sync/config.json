@@ -1,0 +1,9 @@
+{
+  "shape": "manual",
+  "source": "無法の国に生まれて_v0.8.html",
+  "globalName": "MuhouDS",
+  "readmeHeader": ".design-sync/conventions.md",
+  "outDir": "ds-bundle",
+  "notes": "Single-file HTML/CSS/SVG game (not a component-library repo). Bundle authored by hand from the game's own source; no _ds_bundle.js because the game intentionally ships no React library. Every component is a faithful port of the game's real markup/SVG/CSS.",
+  "projectId": null
+}

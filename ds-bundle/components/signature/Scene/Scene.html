@@ -1,0 +1,23 @@
+<!-- @dsCard group="Signature" name="場面 / Scene" subtitle="空(朝/昼/夜+月)×9ロケーション×人影。テキストの背後に置く小さな影絵" width="480" height="200" -->
+<style>
+  :root{--sil:#0c0906}
+  html,body{margin:0;height:100%;background:#14100c}
+  .card{height:100%;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}
+  .scene{width:100%;max-width:440px;border:1px solid #3a3126;border-radius:2px;overflow:hidden;background:#000}
+  .scene svg{display:block;width:100%;height:auto}
+</style>
+<div class="card">
+  <div class="scene">
+    <svg viewBox="0 0 480 130" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#141821"/><stop offset="1" stop-color="#05060a"/></linearGradient></defs>
+      <rect width="480" height="130" fill="url(#sky)"/>
+      <circle cx="392" cy="30" r="13" fill="#cfc7ae" opacity=".85"/><circle cx="386" cy="26" r="11" fill="#141821" opacity=".55"/>
+      <path fill="var(--sil)" d="M0,0 150,0 150,26 120,40 120,130 0,130Z"/>
+      <path fill="var(--sil)" d="M480,0 330,0 330,30 360,44 360,130 480,130Z"/>
+      <path fill="#241a10" d="M120,40 360,44 360,52 120,48Z" opacity=".7"/>
+      <rect x="132" y="70" width="8" height="10" fill="#c19a4b" opacity=".18"/>
+      <path fill="var(--sil)" d="M120,130 120,96 200,104 200,130Z" opacity=".9"/>
+      <g transform="translate(400,40)"><path fill="var(--sil)" d="M0,2 C-8,2 -12,9 -12,15 L-12,18 C-19,24 -22,36 -22,52 L-22,86 22,86 22,52 C22,36 19,24 12,18 L12,15 C12,9 8,2 0,2Z M-12,15 C-14,8 -8,-2 0,-2 8,-2 14,8 12,15 8,10 -8,10 -12,15Z"/></g>
+    </svg>
+  </div>
+</div>

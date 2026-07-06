@@ -1,0 +1,12 @@
+<!-- @dsCard group="Signature" name="墓碑 / Tombstone" subtitle="縦書きの死の記録。天寿(金)と横死(乾血)を色で分ける" width="360" height="360" -->
+<style>
+  :root{--soot:#14100c;--paper:#221b13;--line:#3a3126;--bone:#ece2cb;--blood:#a63d2e;--gold:#bd9448}
+  html,body{margin:0;height:100%}
+  .card{height:100%;display:flex;align-items:center;justify-content:center;background:var(--soot);padding:18px;box-sizing:border-box}
+  .tomb{writing-mode:vertical-rl;background:var(--paper);border:1px solid var(--line);padding:24px 20px;min-height:250px;max-height:320px;overflow:auto;font:15.5px/2.3 "Shippori Mincho",serif;letter-spacing:.12em;color:var(--bone)}
+  .tomb .cause{color:var(--blood)}
+  .tomb .rare{color:var(--gold)}
+</style>
+<div class="card">
+  <div class="tomb">無宿の三郎、廃坑の底に果てる。享年二十九。<span class="cause">坑道の落盤に、名も骨も圧し潰された。</span>誰も、掘り返しはしなかった。<span class="rare">――年代記に「深きへ潜りし者」と刻まれる。</span></div>
+</div>

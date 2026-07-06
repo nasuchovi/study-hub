@@ -1,0 +1,14 @@
+<!-- @dsCard group="Signature" name="蝋燭の灯り / CandleVignette" subtitle="全画面の微揺ビネット＋古紙グレイン。運命時は赤変" width="360" height="300" -->
+<style>
+  html,body{margin:0;height:100%}
+  .card{height:100%;position:relative;overflow:hidden;background:#14100c}
+  .txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#d9cfba;font:15px/1.9 "Shippori Mincho",serif;letter-spacing:.1em;z-index:1;text-align:center;padding:24px}
+  .ds-grain{position:absolute;inset:0;z-index:24;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E")}
+  .ds-candle{position:absolute;inset:0;z-index:25;pointer-events:none;background:radial-gradient(ellipse 90% 62% at 50% 28%,rgba(224,170,96,.09),rgba(0,0,0,.34) 90%);animation:flicker 4.2s ease-in-out infinite}
+  @keyframes flicker{0%,100%{opacity:1}47%{opacity:.86}52%{opacity:.95}70%{opacity:.88}}
+</style>
+<div class="card">
+  <div class="txt">畳の上で死ねた者は、<br>まだいない。</div>
+  <div class="ds-grain"></div>
+  <div class="ds-candle"></div>
+</div>

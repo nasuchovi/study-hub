@@ -1,0 +1,17 @@
+<!-- @dsCard group="Signature" name="朱印スタンプ / JudgeStamp" subtitle="大成功=金／成功=骨／失敗=褪色／大失敗=乾血。判定が捺される瞬間" width="360" height="260" -->
+<style>
+  :root{--soot:#14100c;--bone:#ece2cb;--gold:#bd9448;--blood:#a63d2e}
+  html,body{margin:0;height:100%}
+  .card{height:100%;display:grid;grid-template-columns:1fr 1fr;place-items:center;gap:14px;background:rgba(10,7,5,.98);padding:18px;box-sizing:border-box}
+  .stamp{font:700 30px/1 "Shippori Mincho",serif;letter-spacing:.2em;padding:8px 20px;border:3px solid;border-radius:4px;transform:rotate(-5deg);text-shadow:0 0 7px rgba(0,0,0,.4);filter:drop-shadow(0 0 1px rgba(0,0,0,.5))}
+  .crit{color:var(--gold);border-color:var(--gold)}
+  .succ{color:var(--bone);border-color:var(--bone)}
+  .fail{color:#9a5a44;border-color:#9a5a44}
+  .fumb{color:var(--blood);border-color:var(--blood)}
+</style>
+<div class="card">
+  <span class="stamp crit">大成功</span>
+  <span class="stamp succ">成功</span>
+  <span class="stamp fail">失敗</span>
+  <span class="stamp fumb">大失敗</span>
+</div>

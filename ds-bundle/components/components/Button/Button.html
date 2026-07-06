@@ -1,0 +1,18 @@
+<!-- @dsCard group="Components" name="ボタン / Button" subtitle="選択肢・行動。古紙地・角丸2px・左揃え・副文つき" width="360" height="260" -->
+<style>
+  :root{--soot:#14100c;--paper:#221b13;--paper2:#2b231a;--ink:#d9cfba;--dim:#8a7f6c;--line:#3a3126;--gold:#bd9448}
+  html,body{margin:0;height:100%}
+  .card{height:100%;display:flex;flex-direction:column;justify-content:center;gap:8px;background:var(--soot);padding:20px;box-sizing:border-box}
+  button{font-family:"Shippori Mincho",serif;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:12px 14px;font-size:15px;line-height:1.6;text-align:left;width:100%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.38)}
+  button .meta{display:block;font-size:11.5px;color:var(--dim);margin-top:2px;letter-spacing:.03em}
+  button:disabled{opacity:.35}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+</style>
+<div class="card">
+  <button>生まれる<span class="meta">生まれは選べない</span></button>
+  <button>年代記を読む<span class="meta">歴代の死の記録</span></button>
+  <div class="grid">
+    <button>畑を打つ<span class="meta">体 vs 目標6</span></button>
+    <button disabled>都へ出る<span class="meta">路銀が足りない</span></button>
+  </div>
+</div>

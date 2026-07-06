@@ -1,0 +1,19 @@
+<!-- @dsCard group="Components" name="ステータスバー / StatusBar" subtitle="齢(骨)・銭(金)・傷(乾血の点)・業。画面上部の帯" width="400" height="150" -->
+<style>
+  :root{--soot:#14100c;--ink:#d9cfba;--dim:#8a7f6c;--bone:#ece2cb;--gold:#bd9448;--blood:#a63d2e;--line:#3a3126}
+  html,body{margin:0;height:100%}
+  .card{height:100%;display:flex;align-items:center;background:var(--soot);padding:16px;box-sizing:border-box}
+  #statusbar{width:100%;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding:0 2px 7px;font:13px "Shippori Mincho",serif;color:var(--dim);letter-spacing:.03em;flex-wrap:wrap;gap:2px 8px}
+  #statusbar .age{color:var(--bone);font-size:14.5px}
+  #statusbar .money{color:var(--gold)}
+  #statusbar .injury i{font-style:normal;color:#4a4034}
+  #statusbar .injury i.on{color:var(--blood)}
+</style>
+<div class="card">
+  <div id="statusbar">
+    <span class="age">二十九歳</span>
+    <span class="money">38G</span>
+    <span class="injury">傷 <i class="on">●</i><i class="on">●</i><i>●</i><i>●</i></span>
+    <span>業 4</span>
+  </div>
+</div>

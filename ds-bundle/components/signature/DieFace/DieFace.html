@@ -1,0 +1,23 @@
+<!-- @dsCard group="Signature" name="骰子 / DieFace" subtitle="骨彫り／黒曜の2質感。2D6判定の主役" width="360" height="240" -->
+<style>
+  :root{--soot:#14100c;--bone:#ece2cb}
+  html,body{margin:0;height:100%}
+  .card{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:var(--soot)}
+  .dice-row{display:flex;gap:22px}
+  .die{width:62px;height:62px;background:radial-gradient(circle at 32% 26%,#f6eeda,#e0d4b6 68%,#c9ba98);border-radius:8px;position:relative;box-shadow:0 4px 14px rgba(0,0,0,.6)}
+  .die.obsidian{background:radial-gradient(circle at 32% 26%,#3a3630,#1c1814 70%,#0c0a08)}
+  .pip{position:absolute;width:11px;height:11px;border-radius:50%;background:#231c14}
+  .die.obsidian .pip{background:#d9cfba}
+  .cap{color:#8a7f6c;font:13px/1 "Shippori Mincho",serif;letter-spacing:.2em}
+</style>
+<div class="card">
+  <div class="dice-row">
+    <div class="die"><span class="pip" style="left:calc(50% - 5.5px);top:calc(50% - 5.5px)"></span></div>
+    <div class="die"><span class="pip" style="left:calc(50% - 5.5px);top:calc(50% - 5.5px)"></span></div>
+  </div>
+  <div class="dice-row">
+    <div class="die obsidian"><span class="pip" style="left:calc(25% - 5.5px);top:calc(25% - 5.5px)"></span><span class="pip" style="left:calc(50% - 5.5px);top:calc(50% - 5.5px)"></span><span class="pip" style="left:calc(75% - 5.5px);top:calc(75% - 5.5px)"></span></div>
+    <div class="die obsidian"><span class="pip" style="left:calc(28% - 5.5px);top:calc(24% - 5.5px)"></span><span class="pip" style="left:calc(72% - 5.5px);top:calc(24% - 5.5px)"></span><span class="pip" style="left:calc(28% - 5.5px);top:calc(50% - 5.5px)"></span><span class="pip" style="left:calc(72% - 5.5px);top:calc(50% - 5.5px)"></span><span class="pip" style="left:calc(28% - 5.5px);top:calc(76% - 5.5px)"></span><span class="pip" style="left:calc(72% - 5.5px);top:calc(76% - 5.5px)"></span></div>
+  </div>
+  <div class="cap">骨彫り ／ 黒曜</div>
+</div>
