@@ -1,0 +1,8 @@
+# 原本PDF(大容量バイナリ)は各自 README の手順で取得して配置する
+source/kyosoku_v4.pdf
+# 実行時生成物
+logs/*.log
+logs/generated_chunks.json
+__pycache__/
+scripts/__pycache__/
+review/judgment.json
